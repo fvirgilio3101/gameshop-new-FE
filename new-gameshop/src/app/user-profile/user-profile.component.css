@@ -1,8 +1,32 @@
-.list-group-item.active {
-  background-color: #ff5500;
-  border-color: #ff5500;
+/* user-profile.component.css */
+
+/* Input personalizzati con focus arancione */
+.custom-input {
+  background-color: #1e1e1e;
+  color: #eee;
+  border: 1.5px solid #444;
+  border-radius: 4px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-h3 {
-  color: #333;
+.custom-input:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 6px #ff6600;
+  outline: none;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+/* Bottone arancione con testo bianco */
+.btn-warning {
+  background-color: #ff6600;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+  background-color: #e65c00;
+  color: white;
 }

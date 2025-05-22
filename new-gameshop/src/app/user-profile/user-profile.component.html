@@ -1,72 +1,89 @@
-<div class="container my-5">
+<app-navbar></app-navbar>
+
+<!-- user-profile.component.html -->
+
+<div class="container my-5" style="max-width: 960px; background-color: #222222; color: #eee; padding: 30px; border-radius: 8px;">
+
   <div class="row">
+
     <!-- Sidebar -->
-    <div class="col-md-3 mb-4">
-      <div class="list-group">
-        <button type="button"
-                class="list-group-item list-group-item-action"
-                [class.active]="selectedSection === 'profile'"
-                (click)="setSection('profile')">
-          Profilo
-        </button>
-        <button type="button"
-                class="list-group-item list-group-item-action"
-                [class.active]="selectedSection === 'security'"
-                (click)="setSection('security')">
-          Sicurezza
-        </button>
-      </div>
-    </div>
+    <nav class="col-md-3 d-flex flex-column" style="font-weight: 600;">
+      <button type="button"
+              class="btn text-start mb-2 d-flex align-items-center gap-2"
+              [ngClass]="{'text-warning': selectedSection === 'profile', 'text-secondary': selectedSection !== 'profile'}"
+              (click)="setSection('profile')"
+              style="background: transparent; border: none;">
+        <i class="bi bi-person-fill text-warning fs-5"></i> Profilo
+      </button>
+      <button type="button"
+              class="btn text-start d-flex align-items-center gap-2"
+              [ngClass]="{'text-warning': selectedSection === 'security', 'text-secondary': selectedSection !== 'security'}"
+              (click)="setSection('security')"
+              style="background: transparent; border: none;">
+        <i class="bi bi-shield-check text-warning fs-5"></i> Sicurezza
+      </button>
+    </nav>
 
     <!-- Content -->
-    <div class="col-md-9">
-      @if(selectedSection === 'profile' && user){
-          <div>
-            <h3 class="mb-4">Dati del Profilo</h3>
-            <form (ngSubmit)="saveUserData()" class="row g-3">
-              <div class="col-md-6">
-                <label for="name" class="form-label">Nome</label>
-                <input type="text" id="name" [(ngModel)]="user.name" name="name" class="form-control">
-              </div>
-              <div class="col-md-6">
-                <label for="surname" class="form-label">Cognome</label>
-                <input type="text" id="surname" [(ngModel)]="user.surname" name="surname" class="form-control">
-              </div>
-              <div class="col-md-6">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" id="username" [(ngModel)]="user.username" name="username" class="form-control">
-              </div>
-          <!-- Altri campi opzionali -->
+    <section class="col-md-9">
 
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary">Salva</button>
-              </div>
-          </form>
+      @if(selectedSection === 'profile' && user){
+      <h3 class="text-white mb-4 d-flex align-items-center gap-2 fw-bold">
+        <i class="bi bi-person-fill text-warning fs-4"></i> Dati del Profilo
+      </h3>
+      <form (ngSubmit)="saveUserData()" class="row g-3 text-light">
+
+        <div class="col-md-6">
+          <label for="name" class="form-label text-secondary">Nome</label>
+          <input type="text" id="name" [(ngModel)]="user.name" name="name" class="form-control custom-input">
         </div>
+
+        <div class="col-md-6">
+          <label for="surname" class="form-label text-secondary">Cognome</label>
+          <input type="text" id="surname" [(ngModel)]="user.surname" name="surname" class="form-control custom-input">
+        </div>
+
+        <div class="col-md-6">
+          <label for="username" class="form-label text-secondary">Username</label>
+          <input type="text" id="username" [(ngModel)]="user.username" name="username" class="form-control custom-input">
+        </div>
+
+        <!-- altri campi -->
+
+        <div class="col-12 mt-4 text-center">
+          <button type="submit" class="btn btn-warning px-5 fw-bold">Salva</button>
+        </div>
+      </form>
       }
 
       @if(selectedSection === 'security' && user){
-          <div>
-            <h3 class="mb-4">Modifica Email e Password</h3>
-            <form (ngSubmit)="updateEmailPassword()" class="row g-3">
-              <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" [(ngModel)]="user.email" name="email" class="form-control">
-              </div>
-              <div class="col-md-6">
-                <label for="password" class="form-label">Nuova Password</label>
-                <input type="password" id="password" name="newPassword" class="form-control">
-              </div>
-              <div class="col-md-6">
-                <label for="confirmPassword" class="form-label">Conferma Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
-              </div>
-              <div class="col-12">
-                <button type="submit" class="btn btn-warning">Aggiorna</button>
-              </div>
-            </form>
-          </div>
+      <h3 class="text-white mb-4 d-flex align-items-center gap-2 fw-bold">
+        <i class="bi bi-shield-check text-warning fs-4"></i> Modifica Email e Password
+      </h3>
+      <form (ngSubmit)="updateEmailPassword()" class="row g-3 text-light">
+
+        <div class="col-md-6">
+          <label for="email" class="form-label text-secondary">Email</label>
+          <input type="email" id="email" [(ngModel)]="user.email" name="email" class="form-control custom-input">
+        </div>
+
+        <div class="col-md-6">
+          <label for="password" class="form-label text-secondary">Nuova Password</label>
+          <input type="password" id="password" name="newPassword" class="form-control custom-input">
+        </div>
+
+        <div class="col-md-6">
+          <label for="confirmPassword" class="form-label text-secondary">Conferma Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control custom-input">
+        </div>
+
+        <div class="col-12 mt-4 text-center">
+          <button type="submit" class="btn btn-warning px-5 fw-bold">Aggiorna</button>
+        </div>
+      </form>
       }
-    </div>
+
+    </section>
+
   </div>
 </div>

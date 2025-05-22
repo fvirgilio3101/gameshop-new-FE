@@ -3,10 +3,12 @@ import { AuthService } from '../services/auth.service';
 import { catchError, of } from 'rxjs';
 import { User } from '../models/user';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
-  imports:[FormsModule],
+  imports:[FormsModule,NavbarComponent,CommonModule],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
