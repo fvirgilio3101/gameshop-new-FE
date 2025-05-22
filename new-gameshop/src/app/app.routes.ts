@@ -9,9 +9,15 @@ export const routes: Routes = [
       ),
   },
   {
+    path:'profile',
+    loadComponent: () =>
+      import('./user-profile/user-profile.component').then((m) => m.UserProfileComponent),
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./auth/auth.component').then((m) => m.AuthComponent),
   },
+
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

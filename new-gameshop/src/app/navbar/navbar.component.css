@@ -5,6 +5,14 @@
   display: block;
 }
 
+.platform-selector {
+  max-width: 800px;
+  transition: opacity 0.3s ease-in-out;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Pulsanti piattaforma */
 .platform-button:hover {
   background-color: #555 !important;
 }
@@ -17,6 +25,17 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
+}
+
+/* Nasconde la freccia del dropdown */
+.no-caret::after {
+  display: none !important;
+}
+
+/* Hover personalizzato su elementi dropdown */
+.hover-dark:hover {
+  background-color: #333 !important;
+  color: white !important;
 }
 
 /* Responsive tweaks */
@@ -40,16 +59,3 @@
     font-size: 1.2rem !important;
   }
 }
-.platform-selector {
-  max-width: 800px;
-}
-
-.no-caret::after {
-  display: none !important;
-}
-
-.hover-dark:hover {
-  background-color: #333 !important;
-  color: white !important;
-}
-

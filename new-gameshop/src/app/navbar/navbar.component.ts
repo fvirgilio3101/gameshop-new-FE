@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -12,6 +12,13 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent implements OnInit {
 
   private readonly auth = inject(AuthService);
+
+  hidePlatformBar = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.hidePlatformBar = window.scrollY > 50;
+  }
 
   isLoggedIn:boolean = false;
   selected: string = '';

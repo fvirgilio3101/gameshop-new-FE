@@ -1,0 +1,8 @@
+.list-group-item.active {
+  background-color: #ff5500;
+  border-color: #ff5500;
+}
+
+h3 {
+  color: #333;
+}
