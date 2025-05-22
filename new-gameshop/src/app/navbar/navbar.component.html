@@ -1,17 +1,29 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-black px-4 pt-3 position-relative z-3">
   <div class="container-fluid">
-    <a class="logo-gameshop" href="#"></a>
-
+    <a class="logo-gameshop" aria-label="Gameshop Logo" href="#"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="d-flex align-items-center ms-auto">
+      <div class="d-flex align-items-center ms-auto gap-3">
         <a href="#" class="nav-link text-white"><i class="bi bi-cart fs-4"></i></a>
-        <a href="#" class="nav-link text-white"><i class="bi bi-person-circle fs-4"></i></a>
+        @if (!isLoggedIn) {
+          <a [routerLink]="['/login']" class="nav-link text-white"><i class="bi bi-person-circle fs-4"></i></a>
+        } @else {
+            <div class="dropdown">
+              <a class="nav-link text-primary dropdown-toggle" aria-label="User menu"  role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle fs-4"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" [routerLink]="['/profile']">Profilo</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
+              </ul>
+            </div>
+        }
       </div>
     </div>
   </div>
@@ -19,16 +31,16 @@
 
 <!-- Platform selector -->
 <div class="platform-wrapper">
-  <div class="platform-selector mx-auto">
+  <div class="platform-selector d-flex flex-wrap justify-content-center align-items-center mx-auto shadow-sm rounded-pill bg-dark gap-2 p-2 px-4">
     @for (platform of platforms; track $index) {
-      <div class="platform-button"
-           [ngClass]="{ 'active-platform': selected === platform.name }"
-           (click)="selectPlatform(platform.name)">
+      <div class="platform-button d-flex align-items-center gap-2 text-white px-3 py-2 rounded-pill"
+           [routerLink]="['/', platform.name]"
+           [routerLinkActive]="['platform.background']">
         <i [class]="platform.icon"></i> {{ platform.label }}
       </div>
     }
-    <button class="btn btn-danger rounded-circle">
-      <i class="bi bi-search text-white"></i>
+    <button class="btn btn-danger btn-circle d-flex align-items-center justify-content-center">
+      <i class="bi bi-search text-white fs-5"></i>
     </button>
   </div>
 </div>

@@ -1,0 +1,13 @@
+.auth-container {
+  background: linear-gradient(to bottom right, #1c1c1c, #000000);
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 400px;
+  background-color: #222;
+}
+
+.auth-logo {
+  height: 50px;
+}
