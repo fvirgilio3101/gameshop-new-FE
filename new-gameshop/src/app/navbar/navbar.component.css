@@ -43,3 +43,13 @@
 .platform-selector {
   max-width: 800px;
 }
+
+.no-caret::after {
+  display: none !important;
+}
+
+.hover-dark:hover {
+  background-color: #333 !important;
+  color: white !important;
+}
+
