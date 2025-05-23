@@ -5,37 +5,71 @@
       <h2 class="text-white">Accedi al tuo account</h2>
     </div>
 
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="row g-3">
-      <div class="col-12">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="text-light">
+
+      <!-- Email o Username -->
+      <div class="mb-3">
         <label for="username" class="form-label text-secondary">Email o Username</label>
         <input
           type="text"
           id="username"
           name="username"
           [(ngModel)]="username"
+          #usernameCtrl="ngModel"
           required
-          class="form-control bg-dark text-light border-warning"
-          placeholder="Inserisci il tuo username" />
+          pattern="([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|[a-zA-Z0-9._-]{3,})"
+          class="form-control bg-dark text-light"
+          [ngClass]="{ 'is-invalid': usernameCtrl.invalid && usernameCtrl.touched }"
+          placeholder="Email o username" />
+
+        @if (usernameCtrl.invalid && usernameCtrl.touched) {
+          <div class="invalid-feedback">
+            @if (usernameCtrl.errors?.['required']) {
+              Questo campo è obbligatorio.
+            }
+            @if (usernameCtrl.errors?.['pattern']) {
+              Inserisci una email valida o almeno 3 caratteri come username.
+            }
+          </div>
+        }
       </div>
 
-      <div class="col-12">
+      <!-- Password -->
+      <div class="mb-3">
         <label for="password" class="form-label text-secondary">Password</label>
         <input
           type="password"
           id="password"
           name="password"
           [(ngModel)]="password"
+          #passwordCtrl="ngModel"
           required
-          class="form-control bg-dark text-light border-warning"
-          placeholder="••••••••••" />
+          pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}"
+          class="form-control bg-dark text-light"
+          [ngClass]="{ 'is-invalid': passwordCtrl.invalid && passwordCtrl.touched }"
+          placeholder="••••••••" />
+
+        @if (passwordCtrl.invalid && passwordCtrl.touched) {
+          <div class="invalid-feedback">
+            @if (passwordCtrl.errors?.['required']) {
+              La password è obbligatoria.
+            }
+            @if (passwordCtrl.errors?.['pattern']) {
+              La password deve avere almeno 8 caratteri, una maiuscola, una minuscola e un numero.
+            }
+          </div>
+        }
       </div>
 
-      <div *ngIf="errorMessage" class="col-12">
-        <div class="alert alert-danger text-center py-2">{{ errorMessage }}</div>
-      </div>
+      <!-- Errore backend -->
+      @if (errorMessage) {
+        <div class="alert alert-danger text-center py-2 mb-3">
+          {{ errorMessage }}
+        </div>
+      }
 
-      <div class="col-12 text-center mt-3">
-        <button type="submit" class="btn btn-warning px-5 fw-bold" [disabled]="!loginForm.form.valid">
+      <div class="text-center mt-3">
+        <button type="submit" class="btn btn-warning px-5 fw-bold" [disabled]="loginForm.invalid">
           Accedi
         </button>
       </div>
