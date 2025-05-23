@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Component, computed, HostListener, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,8 +13,11 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent implements OnInit {
 
   private readonly auth = inject(AuthService);
+  private readonly profileService = inject(UserService)
 
   hidePlatformBar = false;
+
+  profileImageUrl = computed(() => this.profileService.profileImageUrl());
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -33,6 +37,17 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     const loggedInStatus = sessionStorage.getItem('isLoggedIn');
     this.isLoggedIn = loggedInStatus === 'true';
+    this.loadProfileImage();
+  }
+
+  loadProfileImage() {
+    this.profileService.getProfileImage().subscribe({
+      next: (url) => {
+        const oldUrl = this.profileService.profileImageUrl();
+        if (oldUrl) URL.revokeObjectURL(oldUrl);
+        this.profileService.profileImageUrl.set(url);
+      }
+    });
   }
 
   selectPlatform(platform: string) {

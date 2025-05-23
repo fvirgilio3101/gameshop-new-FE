@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -36,7 +36,9 @@ export class UserProfileComponent implements OnInit {
   selectedSection: 'profile' | 'security' = 'profile';
   profileForm!: FormGroup;
 
-  imageUrl: string | null = null;
+  profileImageUrl = computed(() => this.profileService.profileImageUrl());
+  uploadMessage = this.profileService.uploadMessage;
+
 
   ngOnInit(): void {
     this.service.getUserDetails()
@@ -68,9 +70,19 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadProfileImage() {
-    this.profileService.getProfileImage().subscribe(blob => {
-      const objectUrl = URL.createObjectURL(blob);
-      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl) as string;
+    this.profileService.getProfileImage().subscribe({
+      next: (url) => {
+        const oldUrl = this.profileService.profileImageUrl();
+        if (oldUrl) URL.revokeObjectURL(oldUrl);  // Libera il blob precedente
+        this.profileService.profileImageUrl.set(url);
+      },
+      error: () => {
+        this.profileService.uploadMessage.set({
+          type: 'error',
+          text: 'Errore nel caricamento dell\'immagine profilo.'
+        });
+        this.profileService.clearUploadMessageAfterDelay();
+      }
     });
   }
 
@@ -79,8 +91,22 @@ export class UserProfileComponent implements OnInit {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       this.profileService.uploadProfileImage(file).subscribe({
-        next: () => this.loadProfileImage(),
-        error: err => console.error('Upload error', err)
+        next: () => {
+          this.profileService.uploadMessage.set({
+            type: 'success',
+            text: 'Immagine del profilo aggiornata con successo!'
+          });
+          this.loadProfileImage();  // Aggiorna l'immagine
+          this.profileService.clearUploadMessageAfterDelay();
+        },
+        error: (err) => {
+          console.error('Upload error', err);
+          this.profileService.uploadMessage.set({
+            type: 'error',
+            text: 'Errore durante il caricamento dell\'immagine.'
+          });
+          this.profileService.clearUploadMessageAfterDelay();
+        }
       });
     }
   }

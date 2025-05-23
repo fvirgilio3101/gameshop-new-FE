@@ -33,16 +33,26 @@
     <!-- User + Cart -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <div class="d-flex align-items-center ms-auto gap-3">
-        <a href="#" class="nav-link text-white"><i class="bi bi-cart fs-4"></i></a>
+        <a href="#" class="nav-link text-white"><i class="bi bi-cart fs-3"></i></a>
         @if (!isLoggedIn) {
-          <a [routerLink]="['/login']" class="nav-link text-white"><i class="bi bi-person-circle fs-4"></i></a>
+          <a [routerLink]="['/login']" class="nav-link text-white">
+            <i class="bi bi-person-circle fs-3"></i>
+          </a>
         } @else {
           <div class="dropdown">
             <button class="btn btn-dark bg-opacity-75 btn-circle d-flex align-items-center justify-content-center dropdown-toggle no-caret"
                 id="userDropdown"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
-                <i class="bi bi-person fs-5 text-primary"></i>
+                @if(!profileImageUrl()){
+                  <i class="bi bi-person fs-3 text-primary"></i>
+                }@else{
+                  <img [src]="profileImageUrl()"
+                    alt="Profile"
+                    class="rounded-circle"
+                    style="width: 45px; height: 45px; object-fit: cover;">
+                }
+
             </button>
             <ul class="dropdown-menu dropdown-menu-end bg-dark text-white border-0" aria-labelledby="userDropdown">
               <li>

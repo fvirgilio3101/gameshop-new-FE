@@ -28,12 +28,13 @@
         </h3>
         <form [formGroup]="profileForm" (ngSubmit)="saveUserData()" class="row g-3 text-light">
           <!-- Profile image selector -->
-          <div class="col-md-12 d-flex align-items-center gap-4">
+          <div class="col-md-12 d-flex align-items-center gap-4 fade-in">
             <div class="position-relative" style="width: 100px; height: 100px;">
               <label for="profileImageInput" class="d-block w-100 h-100 rounded-circle overflow-hidden bg-dark border border-secondary text-center" style="cursor: pointer;">
-                @if(imageUrl){
+
+                @if(profileImageUrl()){
                   <img
-                     [src]="imageUrl"
+                     [src]="profileImageUrl()"
                      alt="Profile"
                      class="w-100 h-100 object-fit-cover rounded-circle">
                 }@else{
@@ -47,6 +48,17 @@
                      accept="image/*"
                      class="d-none"
                      (change)="onImageSelected($event)">
+              @if(uploadMessage()){
+                <div
+                  class="position-absolute top-100 start-50 translate-middle mt-2 px-3 py-1 rounded-pill small fw-semibold text-center"
+                  [ngClass]="{
+                    'bg-success text-white': uploadMessage()?.type === 'success',
+                    'bg-danger text-white': uploadMessage()?.type === 'error'
+                  }"
+                  style="white-space: nowrap;">
+                  {{ uploadMessage()?.text }}
+                </div>
+              }
             </div>
             <div class="flex-grow-1">
               <label for="username" class="form-label text-secondary">Username</label>

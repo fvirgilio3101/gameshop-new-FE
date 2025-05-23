@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable, signal } from "@angular/core";
+import { inject, Injectable, signal, WritableSignal } from "@angular/core";
 import { User } from "../models/user";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 
 @Injectable({
   providedIn:'root'
@@ -12,24 +12,35 @@ export class UserService{
   private readonly http = inject(HttpClient);
 
   baseUrl = 'http://localhost:8082/it.ecubit.gameshop/api/user';
-
-  private readonly user_ = signal<User | null>(null);
-
+  profileImageUrl: WritableSignal<string | null> = signal(null);
+  uploadMessage: WritableSignal<{ type: 'success' | 'error'; text: string } | null> = signal(null);
 
   uploadProfileImage(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post(`${this.baseUrl}/me/upload-profile-image`, formData,{withCredentials:true});
+    return this.http.post(`${this.baseUrl}/me/upload-profile-image`, formData, {
+      withCredentials: true,
+      responseType: 'text'
+    });
   }
 
-
-
-  getProfileImage(): Observable<Blob> {
+  getProfileImage(): Observable<string> {
     return this.http.get(`${this.baseUrl}/me/profile-image`, {
       responseType: 'blob',
-      withCredentials:true
-    });
+      withCredentials: true
+    }).pipe(
+      map(blob => {
+        const objectUrl = URL.createObjectURL(blob);
+        return objectUrl;
+      })
+    );
+  }
+
+  clearUploadMessageAfterDelay(delayMs: number = 3000) {
+    setTimeout(() => {
+      this.uploadMessage.set(null);
+    }, delayMs);
   }
 
   updateCredentials(data: { email?: string; password?: string }) {
@@ -37,5 +48,5 @@ export class UserService{
       withCredentials: true,
       responseType: 'text'
     });
-}
+  }
 }
