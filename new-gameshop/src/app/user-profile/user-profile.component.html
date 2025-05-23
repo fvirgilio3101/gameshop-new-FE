@@ -1,19 +1,15 @@
 <app-navbar></app-navbar>
 
-<!-- user-profile.component.html -->
-
-<div class="container my-5" style="max-width: 960px; background-color: #222222; color: #eee; padding: 30px; border-radius: 8px;">
-
+<div class="container my-5 p-4 rounded" style="max-width: 960px; background-color: #222; color: #eee;">
   <div class="row">
-
     <!-- Sidebar -->
-    <nav class="col-md-3 d-flex flex-column" style="font-weight: 600;">
+    <nav class="col-md-3 d-flex flex-column fw-semibold">
       <button type="button"
               class="btn text-start mb-2 d-flex align-items-center gap-2"
               [ngClass]="{'text-warning': selectedSection === 'profile', 'text-secondary': selectedSection !== 'profile'}"
               (click)="setSection('profile')"
               style="background: transparent; border: none;">
-        <i class="bi bi-person-fill text-warning fs-5"></i> Profilo
+        <i class="bi bi-person-circle text-warning fs-5"></i> Profilo
       </button>
       <button type="button"
               class="btn text-start d-flex align-items-center gap-2"
@@ -26,34 +22,58 @@
 
     <!-- Content -->
     <section class="col-md-9">
+      @if(selectedSection === 'profile' && user && profileForm){
+        <h3 class="text-white mb-4 d-flex align-items-center gap-2 fw-bold">
+          <i class="bi bi-person-circle text-warning fs-4"></i> Dati del Profilo
+        </h3>
+        <form [formGroup]="profileForm" (ngSubmit)="saveUserData()" class="row g-3 text-light">
+          <!-- Profile image selector -->
+          <div class="col-md-12 d-flex align-items-center gap-4">
+            <div class="position-relative" style="width: 100px; height: 100px;">
+              <label for="profileImageInput" class="d-block w-100 h-100 rounded-circle overflow-hidden bg-dark border border-secondary text-center" style="cursor: pointer;">
+                @if(imageUrl){
+                  <img
+                     [src]="imageUrl"
+                     alt="Profile"
+                     class="w-100 h-100 object-fit-cover rounded-circle">
+                }@else{
+                  <i
+                   class="bi bi-person-circle text-secondary"
+                   style="font-size: 64px; line-height: 100px;"></i>
+                }
+              </label>
+              <input type="file"
+                     id="profileImageInput"
+                     accept="image/*"
+                     class="d-none"
+                     (change)="onImageSelected($event)">
+            </div>
+            <div class="flex-grow-1">
+              <label for="username" class="form-label text-secondary">Username</label>
+              <input type="text" id="username" formControlName="username" class="form-control bg-dark text-light border-warning">
+            </div>
+          </div>
 
-      @if(selectedSection === 'profile' && user){
-      <h3 class="text-white mb-4 d-flex align-items-center gap-2 fw-bold">
-        <i class="bi bi-person-fill text-warning fs-4"></i> Dati del Profilo
-      </h3>
-      <form (ngSubmit)="saveUserData()" class="row g-3 text-light">
-
-        <div class="col-md-6">
-          <label for="name" class="form-label text-secondary">Nome</label>
-          <input type="text" id="name" [(ngModel)]="user.name" name="name" class="form-control custom-input">
-        </div>
-
-        <div class="col-md-6">
-          <label for="surname" class="form-label text-secondary">Cognome</label>
-          <input type="text" id="surname" [(ngModel)]="user.surname" name="surname" class="form-control custom-input">
-        </div>
-
-        <div class="col-md-6">
-          <label for="username" class="form-label text-secondary">Username</label>
-          <input type="text" id="username" [(ngModel)]="user.username" name="username" class="form-control custom-input">
-        </div>
-
-        <!-- altri campi -->
-
-        <div class="col-12 mt-4 text-center">
-          <button type="submit" class="btn btn-warning px-5 fw-bold">Salva</button>
-        </div>
-      </form>
+          <div class="col-md-6">
+            <label for="name" class="form-label text-secondary">Nome</label>
+            <input type="text" id="name" formControlName="name" class="form-control bg-dark text-light border-warning">
+          </div>
+          <div class="col-md-6">
+            <label for="surname" class="form-label text-secondary">Cognome</label>
+            <input type="text" id="surname" formControlName="surname" class="form-control bg-dark text-light border-warning">
+          </div>
+          <div class="col-md-6">
+            <label for="address" class="form-label text-secondary">Indirizzo</label>
+            <input type="text" id="address" formControlName="address" class="form-control bg-dark text-light border-warning">
+          </div>
+          <div class="col-md-6">
+            <label for="phone_number" class="form-label text-secondary">Cellulare</label>
+            <input type="text" id="phone_number" formControlName="phone_number" class="form-control bg-dark text-light border-warning">
+          </div>
+          <div class="col-12 mt-4 text-center">
+            <button type="submit" class="btn btn-warning px-5 fw-bold">Salva</button>
+          </div>
+        </form>
       }
 
       @if(selectedSection === 'security' && user){
@@ -64,26 +84,38 @@
 
         <div class="col-md-6">
           <label for="email" class="form-label text-secondary">Email</label>
-          <input type="email" id="email" [(ngModel)]="user.email" name="email" class="form-control custom-input">
+          <input type="email" id="email" [(ngModel)]="newEmail" name="email" class="form-control bg-dark text-light border-warning">
         </div>
 
         <div class="col-md-6">
           <label for="password" class="form-label text-secondary">Nuova Password</label>
-          <input type="password" id="password" name="newPassword" class="form-control custom-input">
+          <input type="password" id="password" name="newPassword" [(ngModel)]="newPassword" class="form-control bg-dark text-light border-warning">
         </div>
 
         <div class="col-md-6">
           <label for="confirmPassword" class="form-label text-secondary">Conferma Password</label>
-          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control custom-input">
+          <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control bg-dark text-light border-warning">
         </div>
 
         <div class="col-12 mt-4 text-center">
           <button type="submit" class="btn btn-warning px-5 fw-bold">Aggiorna</button>
         </div>
+
+        @if (successMessage){
+        <div class ="col-12 mt-2 text-center text-success fw-bold">
+          {{successMessage}}
+        </div>
+        }
+
+        @if (errorMessage){
+        <div class ="col-12 mt-2 text-center text-success fw-bold">
+          {{errorMessage}}
+        </div>
+        }
+
       </form>
+
       }
-
     </section>
-
   </div>
 </div>
