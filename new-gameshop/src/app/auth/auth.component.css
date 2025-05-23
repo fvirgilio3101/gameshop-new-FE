@@ -1,13 +1,19 @@
-.auth-container {
-  background: linear-gradient(to bottom right, #1c1c1c, #000000);
-}
-
-.auth-box {
-  width: 100%;
-  max-width: 400px;
-  background-color: #222;
-}
 
 .auth-logo {
   height: 50px;
+}
+
+.form-control:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 6px #ff6600;
+}
+
+.btn-warning {
+  background-color: #ff6600;
+  border: none;
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+  background-color: #e65c00;
 }

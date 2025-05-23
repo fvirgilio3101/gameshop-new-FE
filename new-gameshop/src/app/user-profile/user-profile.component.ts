@@ -8,6 +8,7 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { NavbarComponent } from '../navbar/navbar.component'; // Standalone anche lui
+import { CustomValidators } from '../utilities/custom.validator';
 
 @Component({
   selector: 'app-user-profile',
@@ -33,6 +34,8 @@ export class UserProfileComponent implements OnInit {
   newEmail: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
+  passwordsDoNotMatch:boolean = false;
+
   selectedSection: 'profile' | 'security' = 'profile';
   profileForm!: FormGroup;
 
@@ -61,11 +64,11 @@ export class UserProfileComponent implements OnInit {
 
   private initForm(user: User) {
     this.profileForm = new FormGroup({
-      name: new FormControl(user.name, Validators.required),
-      surname: new FormControl(user.surname, Validators.required),
-      username: new FormControl(user.username, Validators.required),
+      name: new FormControl(user.name, [Validators.required, CustomValidators.onlyLetters()]),
+      surname: new FormControl(user.surname, [Validators.required, CustomValidators.onlyLetters()]),
+      username: new FormControl(user.username, [Validators.required]),
       address: new FormControl(user.address, Validators.required),
-      phone_number: new FormControl(user.phone_number, Validators.required)
+      phone_number: new FormControl(user.phone_number, [Validators.required, CustomValidators.validPhone()])
     });
   }
 
@@ -73,7 +76,7 @@ export class UserProfileComponent implements OnInit {
     this.profileService.getProfileImage().subscribe({
       next: (url) => {
         const oldUrl = this.profileService.profileImageUrl();
-        if (oldUrl) URL.revokeObjectURL(oldUrl);  // Libera il blob precedente
+        if (oldUrl) URL.revokeObjectURL(oldUrl);
         this.profileService.profileImageUrl.set(url);
       },
       error: () => {
@@ -121,44 +124,33 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateEmailPassword() {
-    this.errorMessage = '';
-    this.successMessage = '';
+    this.passwordsDoNotMatch = this.newPassword !== this.confirmPassword;
+    if (this.passwordsDoNotMatch) return;
 
-    if (this.newPassword && this.newPassword !== this.confirmPassword) {
-      this.errorMessage = 'Le password non corrispondono.';
+    if (!this.newEmail || !this.newPassword) {
       return;
     }
 
     const updateData: { email?: string; password?: string } = {};
-    if (this.newEmail && this.newEmail !== this.user?.email) {
-      updateData.email = this.newEmail;
-    }
-    if (this.newPassword) {
-      updateData.password = this.newPassword;
-    }
+    if (this.newEmail !== this.user.email) updateData.email = this.newEmail;
+    if (this.newPassword) updateData.password = this.newPassword;
 
     if (Object.keys(updateData).length === 0) {
       this.errorMessage = 'Nessuna modifica da salvare.';
       return;
     }
 
-    this.profileService.updateCredentials(updateData)
-      .pipe(
-        catchError((err) => {
-          this.errorMessage = 'Errore durante l\'aggiornamento delle credenziali';
-          console.error(err);
-          return of(null);
-        })
-      )
-      .subscribe(res => {
-        if (res) {
-          this.successMessage = 'Credenziali aggiornate con successo!';
-          if (updateData.email) {
-            if (this.user) this.user.email = updateData.email;
-          }
-          this.newPassword = '';
-          this.confirmPassword = '';
-        }
-      });
+    this.profileService.updateCredentials(updateData).subscribe({
+      next: (res) => {
+        this.successMessage = 'Credenziali aggiornate con successo!';
+        if (updateData.email) this.user.email = updateData.email;
+        this.newPassword = '';
+        this.confirmPassword = '';
+      },
+      error: (err) => {
+        this.errorMessage = 'Errore durante l\'aggiornamento delle credenziali';
+        console.error(err);
+      }
+    });
   }
 }

@@ -22,25 +22,22 @@
 
     <!-- Content -->
     <section class="col-md-9">
-      @if(selectedSection === 'profile' && user && profileForm){
+
+      @if(selectedSection === 'profile' && user && profileForm) {
         <h3 class="text-white mb-4 d-flex align-items-center gap-2 fw-bold">
           <i class="bi bi-person-circle text-warning fs-4"></i> Dati del Profilo
         </h3>
         <form [formGroup]="profileForm" (ngSubmit)="saveUserData()" class="row g-3 text-light">
-          <!-- Profile image selector -->
           <div class="col-md-12 d-flex align-items-center gap-4 fade-in">
             <div class="position-relative" style="width: 100px; height: 100px;">
               <label for="profileImageInput" class="d-block w-100 h-100 rounded-circle overflow-hidden bg-dark border border-secondary text-center" style="cursor: pointer;">
-
-                @if(profileImageUrl()){
+                @if(profileImageUrl()) {
                   <img
-                     [src]="profileImageUrl()"
-                     alt="Profile"
-                     class="w-100 h-100 object-fit-cover rounded-circle">
-                }@else{
-                  <i
-                   class="bi bi-person-circle text-secondary"
-                   style="font-size: 64px; line-height: 100px;"></i>
+                    [src]="profileImageUrl()"
+                    alt="Profile"
+                    class="w-100 h-100 object-fit-cover rounded-circle">
+                } @else {
+                  <i class="bi bi-person-circle text-secondary" style="font-size: 64px; line-height: 100px;"></i>
                 }
               </label>
               <input type="file"
@@ -48,7 +45,7 @@
                      accept="image/*"
                      class="d-none"
                      (change)="onImageSelected($event)">
-              @if(uploadMessage()){
+              @if(uploadMessage()) {
                 <div
                   class="position-absolute top-100 start-50 translate-middle mt-2 px-3 py-1 rounded-pill small fw-semibold text-center"
                   [ngClass]="{
@@ -62,72 +59,154 @@
             </div>
             <div class="flex-grow-1">
               <label for="username" class="form-label text-secondary">Username</label>
-              <input type="text" id="username" formControlName="username" class="form-control bg-dark text-light border-warning">
+              <input type="text" id="username" formControlName="username" class="form-control bg-dark text-light"
+                     [ngClass]="{ 'is-invalid': profileForm.get('username')?.invalid && profileForm.get('username')?.touched }" />
+              @if (profileForm.get('username')?.invalid && profileForm.get('username')?.touched) {
+                <small class="text-danger">Lo username è obbligatorio.</small>
+              }
             </div>
           </div>
 
           <div class="col-md-6">
             <label for="name" class="form-label text-secondary">Nome</label>
-            <input type="text" id="name" formControlName="name" class="form-control bg-dark text-light border-warning">
+            <input type="text" id="name" formControlName="name" class="form-control bg-dark text-light"
+                   [ngClass]="{ 'is-invalid': profileForm.get('name')?.invalid && profileForm.get('name')?.touched }" />
+            @if (profileForm.get('name')?.invalid && profileForm.get('name')?.touched) {
+              <small class="text-danger">
+                @if (profileForm.get('name')?.errors?.['required']) {
+                  Il nome è obbligatorio.
+                }
+                @if (profileForm.get('name')?.errors?.['onlyLetters']) {
+                  Il nome può contenere solo lettere.
+                }
+              </small>
+            }
           </div>
+
           <div class="col-md-6">
             <label for="surname" class="form-label text-secondary">Cognome</label>
-            <input type="text" id="surname" formControlName="surname" class="form-control bg-dark text-light border-warning">
+            <input type="text" id="surname" formControlName="surname" class="form-control bg-dark text-light"
+                   [ngClass]="{ 'is-invalid': profileForm.get('surname')?.invalid && profileForm.get('surname')?.touched }" />
+            @if (profileForm.get('surname')?.invalid && profileForm.get('surname')?.touched) {
+              <small class="text-danger">
+                @if (profileForm.get('surname')?.errors?.['required']) {
+                  Il cognome è obbligatorio.
+                }
+                @if (profileForm.get('surname')?.errors?.['onlyLetters']) {
+                  Il cognome può contenere solo lettere.
+                }
+              </small>
+            }
           </div>
+
           <div class="col-md-6">
             <label for="address" class="form-label text-secondary">Indirizzo</label>
-            <input type="text" id="address" formControlName="address" class="form-control bg-dark text-light border-warning">
+            <input type="text" id="address" formControlName="address" class="form-control bg-dark text-light"
+                   [ngClass]="{ 'is-invalid': profileForm.get('address')?.invalid && profileForm.get('address')?.touched }" />
+            @if (profileForm.get('address')?.invalid && profileForm.get('address')?.touched) {
+              <small class="text-danger">L'indirizzo è obbligatorio.</small>
+            }
           </div>
+
           <div class="col-md-6">
             <label for="phone_number" class="form-label text-secondary">Cellulare</label>
-            <input type="text" id="phone_number" formControlName="phone_number" class="form-control bg-dark text-light border-warning">
+            <input type="text" id="phone_number" formControlName="phone_number" class="form-control bg-dark text-light"
+                   [ngClass]="{ 'is-invalid': profileForm.get('phone_number')?.invalid && profileForm.get('phone_number')?.touched }" />
+            @if (profileForm.get('phone_number')?.invalid && profileForm.get('phone_number')?.touched) {
+              <small class="text-danger">
+                @if (profileForm.get('phone_number')?.errors?.['required']) {
+                  Il numero di telefono è obbligatorio.
+                }
+                @if (profileForm.get('phone_number')?.errors?.['invalidPhone']) {
+                  Inserisci un numero di telefono valido.
+                }
+              </small>
+            }
           </div>
+
           <div class="col-12 mt-4 text-center">
             <button type="submit" class="btn btn-warning px-5 fw-bold">Salva</button>
           </div>
         </form>
       }
 
-      @if(selectedSection === 'security' && user){
-      <h3 class="text-white mb-4 d-flex align-items-center gap-2 fw-bold">
-        <i class="bi bi-shield-check text-warning fs-4"></i> Modifica Email e Password
-      </h3>
-      <form (ngSubmit)="updateEmailPassword()" class="row g-3 text-light">
+     @if(selectedSection === 'security' && user) {
+  <h3 class="text-white mb-4 d-flex align-items-center gap-2 fw-bold">
+    <i class="bi bi-shield-check text-warning fs-4"></i> Modifica Email e Password
+  </h3>
 
-        <div class="col-md-6">
-          <label for="email" class="form-label text-secondary">Email</label>
-          <input type="email" id="email" [(ngModel)]="newEmail" name="email" class="form-control bg-dark text-light border-warning">
-        </div>
+  <form #form="ngForm" (ngSubmit)="updateEmailPassword()" novalidate class="text-light row g-3">
 
-        <div class="col-md-6">
-          <label for="password" class="form-label text-secondary">Nuova Password</label>
-          <input type="password" id="password" name="newPassword" [(ngModel)]="newPassword" class="form-control bg-dark text-light border-warning">
-        </div>
+    <!-- Email -->
+    <div>
+      <label for="email" class="form-label text-secondary">Email</label>
+      <input type="email" id="email" name="email" required
+             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+             [(ngModel)]="newEmail" #email="ngModel"
+             class="form-control bg-dark text-light"
+             [ngClass]="{ 'is-invalid': email.invalid && email.touched }" />
 
-        <div class="col-md-6">
-          <label for="confirmPassword" class="form-label text-secondary">Conferma Password</label>
-          <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control bg-dark text-light border-warning">
-        </div>
-
-        <div class="col-12 mt-4 text-center">
-          <button type="submit" class="btn btn-warning px-5 fw-bold">Aggiorna</button>
-        </div>
-
-        @if (successMessage){
-        <div class ="col-12 mt-2 text-center text-success fw-bold">
-          {{successMessage}}
-        </div>
-        }
-
-        @if (errorMessage){
-        <div class ="col-12 mt-2 text-center text-success fw-bold">
-          {{errorMessage}}
-        </div>
-        }
-
-      </form>
-
+      @if(email.invalid && email.touched) {
+        <small class="text-danger">
+          @if(email.errors && email.errors['required']) {
+            L'email è obbligatoria.
+          }
+          @if(email.errors && email.errors['pattern']) {
+            Inserisci una email valida.
+          }
+        </small>
       }
+    </div>
+
+    <!-- Password -->
+    <div>
+      <label for="password" class="form-label text-secondary">Password</label>
+      <input type="password" id="password" name="password" required
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+          [(ngModel)]="newPassword" #password="ngModel"
+          class="form-control bg-dark text-light"
+          [ngClass]="{ 'is-invalid': password.invalid && password.touched }" />
+
+      @if(password.invalid && password.touched) {
+        <small class="text-danger">
+          @if(password.errors && password.errors['required']) {
+            La password è obbligatoria.
+          }
+          @if(password.errors && password.errors['pattern']) {
+            La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola e un numero.
+          }
+        </small>
+      }
+    </div>
+
+    <!-- Conferma Password -->
+    <div>
+      <label for="confirmPassword" class="form-label text-secondary">Conferma Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required
+             [(ngModel)]="confirmPassword" #confirmPasswordCtrl="ngModel"
+             class="form-control bg-dark text-light"
+             [ngClass]="{
+               'is-invalid': (confirmPasswordCtrl.invalid && confirmPasswordCtrl.touched) || (passwordsDoNotMatch && confirmPasswordCtrl.touched)
+             }" />
+
+      @if((confirmPasswordCtrl.invalid && confirmPasswordCtrl.touched) || (passwordsDoNotMatch && confirmPasswordCtrl.touched)) {
+        <small class="text-danger">
+          @if(confirmPasswordCtrl.errors && confirmPasswordCtrl.errors['required']) {
+            La conferma password è obbligatoria.
+          }
+          @if(!confirmPasswordCtrl.errors && passwordsDoNotMatch) {
+            Le password non corrispondono.
+          }
+        </small>
+      }
+    </div>
+
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-warning px-5 fw-bold" [disabled]="form.invalid || passwordsDoNotMatch">Invia</button>
+    </div>
+  </form>
+}
+
     </section>
   </div>
 </div>

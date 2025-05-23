@@ -1,0 +1,21 @@
+.form-control {
+  background-color: #2a2a2a; /* Colore di sfondo della card */
+  color: #fff;
+  border: 1px solid #ffffff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+
+.form-control:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 6px #ff6600;
+}
+
+.form-control.is-invalid {
+  border-color: #ff3333 !important;
+  box-shadow: 0 0 6px #ff3333;
+}
+
+small.text-danger {
+  font-size: 0.85rem;
+}

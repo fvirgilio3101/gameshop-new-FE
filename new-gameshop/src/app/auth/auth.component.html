@@ -1,48 +1,49 @@
-<div class="auth-container d-flex justify-content-center align-items-center vh-100">
-  <div class="auth-box p-4 shadow-lg rounded-4">
+<div class="container d-flex justify-content-center">
+  <div class="card shadow-lg rounded-4 p-4 mt-5 mb-5 w-100" style="max-width: 600px; background-color: #2a2a2a; color: #eee;">
     <div class="text-center mb-4">
-      <img src="/assets/image/logo-gameshop.svg" alt="GameShop" class="auth-logo mb-3">
+      <img src="/assets/image/logo-gameshop.svg" alt="GameShop" class="mb-3" style="height: 50px;">
       <h2 class="text-white">Accedi al tuo account</h2>
     </div>
 
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <div class="mb-3">
-        <label for="username" class="form-label text-white">Email o Username</label>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="row g-3">
+      <div class="col-12">
+        <label for="username" class="form-label text-secondary">Email o Username</label>
         <input
           type="text"
-          class="form-control"
           id="username"
           name="username"
-          required
           [(ngModel)]="username"
+          required
+          class="form-control bg-dark text-light border-warning"
           placeholder="Inserisci il tuo username" />
       </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label text-white">Password</label>
+      <div class="col-12">
+        <label for="password" class="form-label text-secondary">Password</label>
         <input
           type="password"
-          class="form-control"
           id="password"
           name="password"
-          required
           [(ngModel)]="password"
+          required
+          class="form-control bg-dark text-light border-warning"
           placeholder="••••••••••" />
       </div>
 
-      <div *ngIf="errorMessage" class="alert alert-danger py-2 text-center">
-        {{ errorMessage }}
+      <div *ngIf="errorMessage" class="col-12">
+        <div class="alert alert-danger text-center py-2">{{ errorMessage }}</div>
       </div>
 
-      <button type="submit" class="btn btn-warning w-100 mt-2 fw-bold">
-        Accedi
-      </button>
-    </form>
+      <div class="col-12 text-center mt-3">
+        <button type="submit" class="btn btn-warning px-5 fw-bold" [disabled]="!loginForm.form.valid">
+          Accedi
+        </button>
+      </div>
 
-    <p class="mt-4 mb-0 text-center text-white-50">
-      Non hai un account?
-      <a href="#" class="text-warning">Registrati</a>
-    </p>
+      <p class="mt-4 mb-0 text-center text-white-50">
+        Non hai un account?
+        <a routerLink="/register" class="text-warning">Registrati</a>
+      </p>
+    </form>
   </div>
 </div>
-

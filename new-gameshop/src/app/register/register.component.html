@@ -1,0 +1,133 @@
+<div class="container d-flex justify-content-center">
+  <div class="card shadow-lg rounded-4 p-4 mt-5 mb-5 w-100" style="max-width: 960px; background-color: #2a2a2a; color: #eee;">
+    <div class="text-center mb-4">
+      <img src="/assets/image/logo-gameshop.svg" alt="GameShop" class="mb-3" style="height: 50px;">
+      <h2 class="text-white">Crea il tuo account</h2>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="row g-3">
+
+      <!-- Nome -->
+      <div class="col-md-6">
+        <label class="form-label text-secondary">Nome</label>
+        <input type="text" formControlName="name" class="form-control"
+          [ngClass]="{ 'is-invalid': registerForm.get('name')?.invalid && registerForm.get('name')?.touched }" />
+        @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+          <small class="text-danger">
+            @if (registerForm.get('name')?.errors?.['required']) {
+              Il nome è obbligatorio.
+            }
+            @if (registerForm.get('name')?.errors?.['onlyLetters']) {
+              Il nome può contenere solo lettere.
+            }
+          </small>
+        }
+      </div>
+
+      <!-- Cognome -->
+      <div class="col-md-6">
+        <label class="form-label text-secondary">Cognome</label>
+        <input type="text" formControlName="surname" class="form-control"
+          [ngClass]="{ 'is-invalid': registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched }" />
+        @if (registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched) {
+          <small class="text-danger">
+            @if (registerForm.get('surname')?.errors?.['required']) {
+              Il cognome è obbligatorio.
+            }
+            @if (registerForm.get('surname')?.errors?.['onlyLetters']) {
+              Il cognome può contenere solo lettere.
+            }
+          </small>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="col-md-6">
+        <label class="form-label text-secondary">Email</label>
+        <input type="email" formControlName="email" class="form-control"
+          [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }" />
+        @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+          <small class="text-danger">
+            @if (registerForm.get('email')?.errors?.['required']) {
+              L'email è obbligatoria.
+            }
+            @if (registerForm.get('email')?.errors?.['email']) {
+              Inserisci un'email valida.
+            }
+          </small>
+        }
+      </div>
+
+      <!-- Username -->
+      <div class="col-md-6">
+        <label class="form-label text-secondary">Username</label>
+        <input type="text" formControlName="username" class="form-control"
+          [ngClass]="{ 'is-invalid': registerForm.get('username')?.invalid && registerForm.get('username')?.touched }" />
+        @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+          <small class="text-danger">Lo username è obbligatorio.</small>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="col-md-6">
+        <label class="form-label text-secondary">Password</label>
+        <input type="password" formControlName="password" class="form-control"
+          [ngClass]="{ 'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched }" />
+        @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+          <small class="text-danger">
+            @if (registerForm.get('password')?.errors?.['required']) {
+              La password è obbligatoria.
+            }
+            @if (registerForm.get('password')?.errors?.['weakPassword']) {
+              La password deve contenere almeno 8 caratteri, una maiuscola, una minuscola e un numero.
+            }
+          </small>
+        }
+      </div>
+
+      <!-- Indirizzo -->
+      <div class="col-md-6">
+        <label class="form-label text-secondary">Indirizzo</label>
+        <input type="text" formControlName="address" class="form-control"
+          [ngClass]="{ 'is-invalid': registerForm.get('address')?.invalid && registerForm.get('address')?.touched }" />
+        @if (registerForm.get('address')?.invalid && registerForm.get('address')?.touched) {
+          <small class="text-danger">L'indirizzo è obbligatorio.</small>
+        }
+      </div>
+
+      <!-- Cellulare -->
+      <div class="col-md-6">
+        <label class="form-label text-secondary">Cellulare</label>
+        <input type="text" formControlName="phone_number" class="form-control"
+          [ngClass]="{ 'is-invalid': registerForm.get('phone_number')?.invalid && registerForm.get('phone_number')?.touched }" />
+        @if (registerForm.get('phone_number')?.invalid && registerForm.get('phone_number')?.touched) {
+          <small class="text-danger">
+            @if (registerForm.get('phone_number')?.errors?.['required']) {
+              Il numero di telefono è obbligatorio.
+            }
+            @if (registerForm.get('phone_number')?.errors?.['invalidPhone']) {
+              Inserisci un numero di telefono valido.
+            }
+          </small>
+        }
+      </div>
+
+      <!-- Errore di registrazione -->
+       @if(errorMessage){
+          <div class="col-12">
+            <div class="alert alert-danger text-center py-2">{{ errorMessage }}</div>
+          </div>
+       }
+
+
+      <div class="col-12 text-center mt-3">
+        <button type="submit" class="btn btn-warning px-5 fw-bold" [disabled]="registerForm.invalid">Registrati</button>
+      </div>
+
+      <p class="mt-4 mb-0 text-center text-white-50">
+        Hai già un account?
+        <a routerLink="/login" class="text-warning">Accedi</a>
+      </p>
+    </form>
+  </div>
+</div>
