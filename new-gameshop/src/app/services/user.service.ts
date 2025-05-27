@@ -49,4 +49,25 @@ export class UserService{
       responseType: 'text'
     });
   }
+  loadProfileImage() {
+  this.getProfileImage().subscribe({
+    next: (url) => {
+      const oldUrl = this.profileImageUrl();
+      if (oldUrl) URL.revokeObjectURL(oldUrl);
+      this.profileImageUrl.set(url);
+    },
+    error: (err) => {
+      if (err.status !== 404) {
+        this.uploadMessage.set({
+          type: 'error',
+          text: "Errore nel caricamento dell'immagine profilo."
+        });
+        this.clearUploadMessageAfterDelay();
+      } else {
+        this.profileImageUrl.set(null);
+      }
+    }
+  });
+}
+
 }
