@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
 import { User } from '../models/user';
 
 @Injectable({
@@ -56,5 +56,12 @@ export class AuthService {
     return this.http.get<User>('http://localhost:8082/it.ecubit.gameshop/api/user/me', {
       withCredentials: true
     });
+  }
+
+  checkAuth() {
+    return this.http.get('/api/auth/check', { withCredentials: true }).pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
   }
 }
