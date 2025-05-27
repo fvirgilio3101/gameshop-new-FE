@@ -1,0 +1,66 @@
+.bg-custom-dark {
+  background-color: #101010 !important;
+}
+
+.icon-custom-color {
+  color: #ff5400;
+}
+
+.footer-link {
+  color: #cfd2d6;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: 1.10rem;
+}
+
+.footer-link:hover {
+  color: #ffa700;
+}
+
+.social-btn {
+  width: 50px;
+  height: 50px;
+  font-size: 2rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+.social-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Social Brand Colors (bg semi-trasparente + icona piena) */
+.facebook {
+  background-color: rgba(59, 89, 152, 0.15);
+  color: #3b5998;
+}
+
+.twitter {
+  background-color: rgba(29, 161, 242, 0.15);
+  color: #1da1f2;
+}
+
+.instagram {
+  background-color: rgba(228, 64, 95, 0.15);
+  color: #e4405f;
+}
+
+.youtube {
+  background-color: rgba(255, 0, 0, 0.15);
+  color: #ff0000;
+}
+
+.discord {
+  background-color: rgba(88, 101, 242, 0.15);
+  color: #5865f2;
+}
+
+.twitch {
+  background-color: rgba(145, 70, 255, 0.15);
+  color: #9146ff;
+}
