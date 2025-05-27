@@ -13,7 +13,7 @@
         @for (platform of platforms; track $index) {
           <a class="d-flex align-items-center gap-2 text-white px-3 py-2 rounded-pill text-decoration-none fw-semibold platform-button"
             [routerLink]="['/', platform.name]"
-            [routerLinkActive]="['active-platform']">
+            [routerLinkActive]="[platform.background]">
             <i [class]="platform.icon" class="fs-5"></i>
             {{ platform.label }}
           </a>
@@ -34,7 +34,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <div class="d-flex align-items-center ms-auto gap-3">
         <a href="#" class="nav-link text-white"><i class="bi bi-cart fs-3"></i></a>
-        @if (!isLoggedIn) {
+        @if (!isLoggedIn()) {
           <a [routerLink]="['/login']" class="nav-link text-white">
             <i class="bi bi-person-circle fs-3"></i>
           </a>

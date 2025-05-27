@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, HostListener, inject,OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
-import { filter, Subscription } from 'rxjs';
+import { filter} from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
@@ -12,7 +12,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit{
 
   private readonly auth = inject(AuthService);
   private readonly profileService = inject(UserService);
@@ -20,10 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   hidePlatformBar = false;
   profileImageUrl = computed(() => this.profileService.profileImageUrl());
-
-  private loginSub?: Subscription;
-
-  isLoggedIn: boolean = false;
+  readonly isLoggedIn = computed(() => this.auth.isLoggedIn());
   selected: string = '';
 
   platforms = [
@@ -34,12 +31,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
-    this.loginSub = this.auth.isLoggedIn$.subscribe(status => {
-      this.isLoggedIn = status;
-      if (status) {
-        this.loadProfileImage();
-      }
+    this.auth.checkAuth().subscribe({
+      next: () => this.auth.isLoggedIn.set(true),
+      error: () => this.auth.isLoggedIn.set(false)
     });
+    if(this.isLoggedIn()){
+      this.loadProfileImage()
+    }
+
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -50,9 +49,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.loginSub?.unsubscribe();
-  }
 
   loadProfileImage() {
     this.profileService.getProfileImage().subscribe({
@@ -74,7 +70,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   const oldUrl = this.profileService.profileImageUrl();
   if (oldUrl) URL.revokeObjectURL(oldUrl);
   this.profileService.profileImageUrl.set(null);
-  
+
   this.router.navigate(['/home']);
 }
 

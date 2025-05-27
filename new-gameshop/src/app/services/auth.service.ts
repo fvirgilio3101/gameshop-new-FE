@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
 import { User } from '../models/user';
 
@@ -10,11 +10,9 @@ export class AuthService {
 
   private readonly http = inject(HttpClient);
 
-  private _isLoggedIn$ = new BehaviorSubject<boolean>(
-    sessionStorage.getItem('isLoggedIn') === 'true'
-  );
+  private readonly baseUrl = 'http://localhost:8082/it.ecubit.gameshop/';
 
-  isLoggedIn$ = this._isLoggedIn$.asObservable();
+  isLoggedIn = signal<boolean>(false);
 
   login(username: string, password: string) {
     const headers = new HttpHeaders({
@@ -23,27 +21,22 @@ export class AuthService {
 
     const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
-    return this.http.post('http://localhost:8082/it.ecubit.gameshop/login', body, {
+    return this.http.post(this.baseUrl +'login', body, {
       headers,
       withCredentials: true,
       responseType: 'text',
-    }).pipe(
-      tap(() => {
-        sessionStorage.setItem('isLoggedIn', 'true');
-        this._isLoggedIn$.next(true);
-      })
-    );
+    });
   }
 
   logout() {
-    sessionStorage.removeItem('isLoggedIn');
-    sessionStorage.removeItem('userID');
-    this._isLoggedIn$.next(false);
+    this.http.get(this.baseUrl + '/logout', { withCredentials: true }).subscribe(() => {
+      this._isLoggedIn.set(false);
+    });
   }
 
   register(user: any) {
     return this.http.post(
-      'http://localhost:8082/it.ecubit.gameshop/api/user/register',
+      this.baseUrl + 'api/user/register',
       user,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -53,15 +46,12 @@ export class AuthService {
   }
 
   getUserDetails() {
-    return this.http.get<User>('http://localhost:8082/it.ecubit.gameshop/api/user/me', {
+    return this.http.get<User>(this.baseUrl + 'api/user/me', {
       withCredentials: true
     });
   }
 
   checkAuth() {
-    return this.http.get('/api/auth/check', { withCredentials: true }).pipe(
-      map(() => true),
-      catchError(() => of(false))
-    );
+    return this.http.get(this.baseUrl + 'auth/check', { withCredentials: true })
   }
 }
