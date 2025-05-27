@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth/auth.guard';
+import { PlatformPageComponent } from './platform-page/platform-page.component';
 
 export const routes: Routes = [
   {
@@ -23,5 +24,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./register/register.component').then((m) => m.RegisterComponent),
   },
+  { path: ':platform', component: PlatformPageComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

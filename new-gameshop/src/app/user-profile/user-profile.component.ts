@@ -17,7 +17,6 @@ import { CustomValidators } from '../utilities/custom.validator';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NavbarComponent
   ],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
@@ -73,21 +72,26 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadProfileImage() {
-    this.profileService.getProfileImage().subscribe({
-      next: (url) => {
-        const oldUrl = this.profileService.profileImageUrl();
-        if (oldUrl) URL.revokeObjectURL(oldUrl);
-        this.profileService.profileImageUrl.set(url);
-      },
-      error: () => {
+  this.profileService.getProfileImage().subscribe({
+    next: (url) => {
+      const oldUrl = this.profileService.profileImageUrl();
+      if (oldUrl) URL.revokeObjectURL(oldUrl);
+      this.profileService.profileImageUrl.set(url);
+    },
+    error: (err) => {
+      if (err.status !== 404) {
         this.profileService.uploadMessage.set({
           type: 'error',
           text: 'Errore nel caricamento dell\'immagine profilo.'
         });
         this.profileService.clearUploadMessageAfterDelay();
+      } else {
+        this.profileService.profileImageUrl.set(null);
       }
-    });
-  }
+    }
+  });
+}
+
 
   onImageSelected(event: Event) {
     const input = event.target as HTMLInputElement;

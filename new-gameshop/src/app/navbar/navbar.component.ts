@@ -1,43 +1,57 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, HostListener, inject, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, computed, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule,RouterModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   private readonly auth = inject(AuthService);
-  private readonly profileService = inject(UserService)
+  private readonly profileService = inject(UserService);
+  private readonly router = inject(Router);
 
   hidePlatformBar = false;
-
   profileImageUrl = computed(() => this.profileService.profileImageUrl());
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    this.hidePlatformBar = window.scrollY > 50;
-  }
+  private loginSub?: Subscription;
 
-  isLoggedIn:boolean = false;
+  isLoggedIn: boolean = false;
   selected: string = '';
 
   platforms = [
-    { name: 'PC', label: 'PC', icon: 'bi bi-display',background: 'bg-warning' },
-    { name: 'PlayStation', label: 'PlayStation', icon: 'bi bi-playstation',background:'bg-primary' },
-    { name: 'Xbox', label: 'Xbox', icon: 'bi bi-xbox',background: 'bg-success' },
-    { name: 'Nintendo', label: 'Nintendo', icon: 'bi bi-nintendo-switch',background:'bg-danger' }
+    { name: 'PC', label: 'PC', icon: 'bi bi-display', background: 'bg-warning' },
+    { name: 'PlayStation', label: 'PlayStation', icon: 'bi bi-playstation', background: 'bg-primary' },
+    { name: 'Xbox', label: 'Xbox', icon: 'bi bi-xbox', background: 'bg-success' },
+    { name: 'Nintendo', label: 'Nintendo', icon: 'bi bi-nintendo-switch', background: 'bg-danger' }
   ];
 
   ngOnInit(): void {
-    const loggedInStatus = sessionStorage.getItem('isLoggedIn');
-    this.isLoggedIn = loggedInStatus === 'true';
-    this.loadProfileImage();
+    this.loginSub = this.auth.isLoggedIn$.subscribe(status => {
+      this.isLoggedIn = status;
+      if (status) {
+        this.loadProfileImage();
+      }
+    });
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      const urlPlatform = this.router.url.split('/')[1]?.toLowerCase() || '';
+      const matchedPlatform = this.platforms.find(p => p.name.toLowerCase() === urlPlatform);
+      this.selected = matchedPlatform ? matchedPlatform.name : '';
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.loginSub?.unsubscribe();
   }
 
   loadProfileImage() {
@@ -52,13 +66,20 @@ export class NavbarComponent implements OnInit {
 
   selectPlatform(platform: string) {
     this.selected = platform;
-    console.log('Selected:', platform);
+    this.router.navigate(['/', platform.toLowerCase()]);
   }
 
-  logout(){
-    sessionStorage.removeItem('isLoggedIn');
-    sessionStorage.removeItem('userID');
-    this.isLoggedIn = false;
-    window.location.href = '/home';
+  logout() {
+  this.auth.logout();
+  const oldUrl = this.profileService.profileImageUrl();
+  if (oldUrl) URL.revokeObjectURL(oldUrl);
+  this.profileService.profileImageUrl.set(null);
+  
+  this.router.navigate(['/home']);
+}
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.hidePlatformBar = window.scrollY > 50;
   }
 }

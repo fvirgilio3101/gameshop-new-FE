@@ -34,7 +34,6 @@
         }
       </div>
 
-      <!-- Password -->
       <div class="mb-3">
         <label for="password" class="form-label text-secondary">Password</label>
         <input
@@ -44,7 +43,7 @@
           [(ngModel)]="password"
           #passwordCtrl="ngModel"
           required
-          pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}"
+          pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}"
           class="form-control bg-dark text-light"
           [ngClass]="{ 'is-invalid': passwordCtrl.invalid && passwordCtrl.touched }"
           placeholder="••••••••" />
