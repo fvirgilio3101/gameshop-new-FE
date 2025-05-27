@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, HostListener, inject,OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, HostListener, inject,OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter} from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -17,6 +17,8 @@ export class NavbarComponent implements OnInit{
   private readonly auth = inject(AuthService);
   private readonly profileService = inject(UserService);
   private readonly router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
+  
 
   hidePlatformBar = false;
   profileImageUrl = computed(() => this.profileService.profileImageUrl());
@@ -31,23 +33,23 @@ export class NavbarComponent implements OnInit{
   ];
 
   ngOnInit(): void {
-    this.auth.checkAuth().subscribe({
-      next: () => this.auth.isLoggedIn.set(true),
-      error: () => this.auth.isLoggedIn.set(false)
-    });
-    if(this.isLoggedIn()){
-      this.loadProfileImage()
-    }
+  this.auth.checkAuth().subscribe({
+    next: () => {
+      this.auth.isLoggedIn.set(true);
+      this.loadProfileImage(); // <-- spostato qui
+    },
+    error: () => this.auth.isLoggedIn.set(false)
+  });
 
+  this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd)
+  ).subscribe(() => {
+    const urlPlatform = this.router.url.split('/')[1]?.toLowerCase() || '';
+    const matchedPlatform = this.platforms.find(p => p.name.toLowerCase() === urlPlatform);
+    this.selected = matchedPlatform ? matchedPlatform.name : '';
+  });
+}
 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      const urlPlatform = this.router.url.split('/')[1]?.toLowerCase() || '';
-      const matchedPlatform = this.platforms.find(p => p.name.toLowerCase() === urlPlatform);
-      this.selected = matchedPlatform ? matchedPlatform.name : '';
-    });
-  }
 
 
   loadProfileImage() {
@@ -56,6 +58,7 @@ export class NavbarComponent implements OnInit{
         const oldUrl = this.profileService.profileImageUrl();
         if (oldUrl) URL.revokeObjectURL(oldUrl);
         this.profileService.profileImageUrl.set(url);
+        this.cdr.detectChanges();
       }
     });
   }

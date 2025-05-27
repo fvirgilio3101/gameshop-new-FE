@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { User } from '../models/user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,28 +10,39 @@ import { User } from '../models/user';
 export class AuthService {
 
   private readonly http = inject(HttpClient);
+  private readonly userService = inject(UserService);
 
   private readonly baseUrl = 'http://localhost:8082/it.ecubit.gameshop/';
 
   isLoggedIn = signal<boolean>(false);
 
   login(username: string, password: string) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { username, password };
 
-    const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
-
-    return this.http.post(this.baseUrl +'login', body, {
+    return this.http.post(this.baseUrl + 'login', body, {
       headers,
       withCredentials: true,
       responseType: 'text',
-    });
+    }).pipe(
+      tap(() => {
+        this.isLoggedIn.set(true);
+        this.userService.loadProfileImage(); // Carica subito immagine profilo
+      }),
+      catchError(error => {
+        this.isLoggedIn.set(false);
+        return of(error);
+      })
+    );
   }
 
   logout() {
-    this.http.get(this.baseUrl + '/logout', { withCredentials: true }).subscribe(() => {
-      this._isLoggedIn.set(false);
+    this.http.get(this.baseUrl + 'logout', { withCredentials: true }).subscribe(() => {
+      this.isLoggedIn.set(false);
+      // Resetta immagine profilo
+      const oldUrl = this.userService.profileImageUrl();
+      if (oldUrl) URL.revokeObjectURL(oldUrl);
+      this.userService.profileImageUrl.set(null);
     });
   }
 
@@ -52,6 +64,16 @@ export class AuthService {
   }
 
   checkAuth() {
-    return this.http.get(this.baseUrl + 'auth/check', { withCredentials: true })
+    return this.http.get(this.baseUrl + 'auth/check', { withCredentials: true }).pipe(
+      map(() => true),
+      tap(() => {
+        this.isLoggedIn.set(true);
+        this.userService.loadProfileImage(); // Carica immagine profilo se già loggato
+      }),
+      catchError(() => {
+        this.isLoggedIn.set(false);
+        return of(false);
+      })
+    );
   }
 }
