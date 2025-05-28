@@ -12,13 +12,33 @@
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* Pulsanti piattaforma */
 .platform-button:hover {
   background-color: #555 !important;
 }
 
-.platform-button.active-platform {
-  background-color: #777 !important;
+.playstation{
+  background-color: #0970d8 !important;
+}
+
+.xbox{
+  background-color: #107c10 !important;
+}
+
+.nintendo{
+  background-color: #ff151f !important;
+}
+
+.pc{
+  background-color: #ff5400 !important;
+}
+.search-button{
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  width: 66px;
+  transition: 0.2s;
+  visibility: visible;
+  z-index: 11;
 }
 
 .btn-circle {
@@ -27,18 +47,17 @@
   border-radius: 50%;
 }
 
-/* Nasconde la freccia del dropdown */
+
 .no-caret::after {
   display: none !important;
 }
 
-/* Hover personalizzato su elementi dropdown */
+
 .hover-dark:hover {
   background-color: #333 !important;
   color: white !important;
 }
 
-/* Responsive tweaks */
 @media (max-width: 768px) {
   .platform-selector {
     flex-direction: column !important;
@@ -56,6 +75,6 @@
   }
 
   .bi {
-    font-size: 1.2rem !important;
+    font-size: 1.5rem !important;
   }
 }

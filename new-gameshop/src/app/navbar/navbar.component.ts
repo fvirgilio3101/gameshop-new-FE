@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit{
   private readonly profileService = inject(UserService);
   private readonly router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
-  
+
 
   hidePlatformBar = false;
   profileImageUrl = computed(() => this.profileService.profileImageUrl());
@@ -26,10 +26,10 @@ export class NavbarComponent implements OnInit{
   selected: string = '';
 
   platforms = [
-    { name: 'PC', label: 'PC', icon: 'bi bi-display', background: 'bg-warning' },
-    { name: 'PlayStation', label: 'PlayStation', icon: 'bi bi-playstation', background: 'bg-primary' },
-    { name: 'Xbox', label: 'Xbox', icon: 'bi bi-xbox', background: 'bg-success' },
-    { name: 'Nintendo', label: 'Nintendo', icon: 'bi bi-nintendo-switch', background: 'bg-danger' }
+    { name: 'PC', label: 'PC', icon: 'bi bi-display', background: 'pc' },
+    { name: 'PlayStation', label: 'PlayStation', icon: 'bi bi-playstation', background: 'playstation' },
+    { name: 'Xbox', label: 'Xbox', icon: 'bi bi-xbox', background: 'xbox' },
+    { name: 'Nintendo', label: 'Nintendo', icon: 'bi bi-nintendo-switch', background: 'nintendo' }
   ];
 
   ngOnInit(): void {
