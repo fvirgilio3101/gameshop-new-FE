@@ -18,14 +18,15 @@
 /* FORM */
 .form-control {
   background-color: var(--color-bg-input);
-  color: var(--color-white);
-  border: 1px solid #6c757d;
+  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .3);
+  height: 58px;
+  color: #fff;
+  border: 0;
   border-radius: 0.5rem;
 }
 
 .form-control:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 0.2rem rgba(255, 167, 0, 0.25);
+  box-shadow: inset 0 0 0 2px var(--color-primary);
 }
 
 input[type='date']::-webkit-calendar-picker-indicator {
