@@ -1,24 +1,132 @@
+:host {
+  --color-primary: #ff5400;
+  --color-accent: #ffa700;
+  --color-bg-dark: #1e1e1e;
+  --color-bg-input: #2a2a2a;
+  --color-white: #ffffff;
+}
+
+/* CARD */
+.card {
+  background-color: var(--color-bg-dark);
+  color: var(--color-white);
+  border-radius: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* FORM */
 .form-control {
-  background-color: #2a2a2a;
-  color: #fff;
-  border: 1px solid #fff;
+  background-color: var(--color-bg-input);
+  color: var(--color-white);
+  border: 1px solid #6c757d;
+  border-radius: 0.5rem;
 }
 
 .form-control:focus {
-  border-color: #ff6600;
-  box-shadow: 0 0 6px #ff6600;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 0.2rem rgba(255, 167, 0, 0.25);
 }
 
-.list-group-item {
-  border: none;
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+/* DROPDOWN CON CHECKBOX */
+.dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: var(--color-bg-input);
+  border: 1px solid #6c757d;
+  border-radius: 0.5rem;
+  z-index: 1000;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+
+
+.dropdown-item:hover {
+  background-color: transparent;
+  color: var(--color-accent);
+}
+
+.dropdown-toggle {
+  background-color: var(--color-bg-input);
+  color: var(--color-white);
+  text-align: left;
+  width: 100%;
+  border: 1px solid #6c757d;
+  border-radius: 0.5rem;
+}
+
+.dropdown-toggle:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 0.2rem rgba(255, 167, 0, 0.25);
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  transition: background-color 0.2s;
+}
+
+.form-check:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0.25rem;
+}
+
+.form-check-input {
+  width: 1rem;
+  height: 1rem;
+  background-color: #444;
+  border: 1px solid #aaa;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.form-check-label {
+  cursor: pointer;
+  color: var(--color-white);
+}
+
+/* BOTTONI */
+.btn-warning {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-warning:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #000;
 }
 
 .btn-outline-warning {
-  color: #ff6600;
-  border-color: #ff6600;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .btn-outline-warning:hover {
-  background-color: #ff6600;
+  background-color: var(--color-accent);
   color: #000;
+}
+
+/* SCREENSHOTS */
+.screenshot-thumb {
+  border: 1px solid #6c757d;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
 }

@@ -1,121 +1,113 @@
-<div class="container mt-4">
-  <div class="card shadow-lg p-4 mx-auto" style="max-width: 700px; background-color: #1e1e1e; color: #fff;">
-    <h2 class="mb-4 text-warning text-center">🎮 Nuovo Videogioco</h2>
+<div class="container my-5">
+  <div class="card shadow-lg p-4 mx-auto" style="max-width: 800px;">
+    <h2 class="mb-4 text-center">Nuovo Videogioco</h2>
 
-    <form [formGroup]="form" (ngSubmit)="save()" class="videogame-form">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="row g-3">
 
-      <!-- Titolo -->
-      <div class="mb-3">
-        <label class="form-label">Titolo</label>
-        <input type="text" class="form-control bg-dark text-white border-secondary" formControlName="titleVideogame" placeholder="Inserisci il titolo">
-      </div>
-
-      <!-- Prezzo -->
-      <div class="mb-3">
-        <label class="form-label">Prezzo (€)</label>
-        <input type="number" class="form-control bg-dark text-white border-secondary" formControlName="priceVideogame" placeholder="Prezzo">
-      </div>
-
-      <!-- Descrizione -->
-      <div class="mb-3">
-        <label class="form-label">Descrizione</label>
-        <textarea rows="4" class="form-control bg-dark text-white border-secondary" formControlName="descVideogame" placeholder="Descrizione del gioco"></textarea>
-      </div>
-
-      <!-- Piattaforme -->
-      <div class="mb-3">
-        <label class="form-label">Piattaforme</label>
-        <div class="dropdown">
-          <button class="btn btn-dark border-secondary dropdown-toggle w-100 text-start" type="button" data-bs-toggle="dropdown">
-            {{ selectedPlatformsLabel() }}
-          </button>
-          <ul class="dropdown-menu w-100 bg-dark text-white border-secondary">
-            @for (platform of availablePlatforms; track platform.id) {
-              <li>
-                <div class="form-check px-3">
-                  <input class="form-check-input" type="checkbox" [id]="'plat-' + platform.id"
-                    [checked]="isSelectedPlatform(platform)" (change)="togglePlatform(platform)">
-                  <label class="form-check-label" [for]="'plat-' + platform.id">{{ platform.name }}</label>
-                </div>
-              </li>
-            }
-          </ul>
+        <div class="col-md-6">
+          <label class="form-label">Titolo</label>
+          <input class="form-control" formControlName="titleVideogame" placeholder="Titolo">
         </div>
-      </div>
 
-      <!-- Generi -->
-      <div class="mb-3">
-        <label class="form-label">Genere</label>
-        <div class="dropdown">
-          <button class="btn btn-dark border-secondary dropdown-toggle w-100 text-start" type="button" data-bs-toggle="dropdown">
-            {{ selectedGenresLabel() }}
-          </button>
-          <ul class="dropdown-menu w-100 bg-dark text-white border-secondary">
-            @for (genre of genres(); track genre.name) {
-              <li>
-                <div class="form-check px-3">
-                  <input class="form-check-input" type="checkbox" [id]="'genre-' + genre.name"
-                    [checked]="isSelectedGenre(genre)" (change)="toggleGenre(genre)">
-                  <label class="form-check-label" [for]="'genre-' + genre.name">{{ genre.name }}</label>
-                </div>
-              </li>
-            }
-          </ul>
+        <div class="col-md-6">
+          <label class="form-label">Prezzo (€)</label>
+          <input type="number" class="form-control" formControlName="priceVideogame">
         </div>
-      </div>
 
-      <!-- Data di rilascio -->
-      <div class="mb-3">
-        <label class="form-label">Data di rilascio</label>
-        <div class="input-group">
-          <span class="input-group-text bg-dark text-white border-secondary">
-            <i class="bi bi-calendar-event"></i>
-          </span>
-          <input type="date" class="form-control bg-dark text-white border-secondary" formControlName="releaseDateVideogame">
+        <div class="col-12">
+          <label class="form-label">Descrizione</label>
+          <textarea rows="4" class="form-control" formControlName="descVideogame"></textarea>
         </div>
-      </div>
 
-      <!-- Copertina -->
-      <div class="mb-3">
-        <label class="form-label">Immagine di copertina</label>
-        <input type="text" class="form-control bg-dark text-white border-secondary" formControlName="coverImage" placeholder="URL dell'immagine">
-        @if (form.get('coverImage')?.value) {
-          <div class="text-center mt-3">
-            <img [src]="form.get('coverImage')?.value" class="img-fluid rounded shadow" style="max-height: 200px;" alt="Copertina">
+        <!-- Dropdown Piattaforme -->
+        <div class="col-md-6">
+          <label class="form-label">Piattaforme</label>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle border" type="button" data-bs-toggle="dropdown">
+              {{ selectedPlatformsLabel() }}
+            </button>
+            <ul class="dropdown-menu">
+              @for (platform of availablePlatforms; track platform.id) {
+                <li class="dropdown-item">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'plat-' + platform.id"
+                      [checked]="isSelectedPlatform(platform)" (change)="togglePlatform(platform)">
+                    <label class="form-check-label" [for]="'plat-' + platform.id">{{ platform.name }}</label>
+                  </div>
+                </li>
+              }
+            </ul>
           </div>
-        }
-      </div>
-
-      <!-- Screenshot -->
-      <h5 class="text-warning mt-4">Screenshots</h5>
-
-      <div class="mb-3">
-        <label class="form-label">URL Screenshot</label>
-        <div class="input-group">
-          <input type="text" class="form-control bg-dark text-white border-secondary" [(ngModel)]="newScreenshot" name="screenshotInput" placeholder="https://..." [ngModelOptions]="{standalone: true}">
-          <button type="button" class="btn btn-outline-warning" (click)="addScreenshot()" [disabled]="!newScreenshot">Aggiungi Screenshot</button>
         </div>
-      </div>
 
-      @if (screenshots.controls.length > 0) {
-        <div class="row g-3">
-          @for (ctrl of screenshots.controls; track $index) {
-            <div class="col-6 col-md-4">
-              <div class="position-relative border border-secondary rounded shadow-sm">
-                <img [src]="ctrl.value" class="img-fluid rounded" alt="Screenshot {{ $index + 1 }}">
-                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1" (click)="removeScreenshot($index)">
-                  <i class="bi bi-x-lg"></i>
-                </button>
-              </div>
+        <!-- Dropdown Generi -->
+        <div class="col-md-6">
+          <label class="form-label">Genere</label>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle border" type="button" data-bs-toggle="dropdown">
+              {{ selectedGenresLabel() }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              @for (genre of genres(); track genre.name) {
+                <li class="dropdown-item">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'genre-' + genre.name"
+                      [checked]="isSelectedGenre(genre)" (change)="toggleGenre(genre)">
+                    <label class="form-check-label" [for]="'genre-' + genre.name">{{ genre.name }}</label>
+                  </div>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Data di rilascio</label>
+          <input type="date" class="form-control" formControlName="releaseDateVideogame">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Copertina</label>
+          <input type="text" class="form-control" formControlName="coverImage">
+          @if (form.get('coverImage')?.value) {
+            <div class="text-center mt-3">
+              <img alt="Cover" [src]="form.get('coverImage')?.value" class="img-fluid rounded shadow" style="max-height: 200px;">
             </div>
           }
         </div>
-      }
 
-      <!-- Pulsanti -->
-      <div class="d-flex justify-content-between mt-4">
-        <button type="submit" class="btn btn-warning">💾 Salva</button>
-        <button type="button" class="btn btn-outline-light" (click)="reset()">🔄 Reset</button>
+        <div class="col-12">
+          <h5 class="text-warning mt-4">Screenshots</h5>
+          <label class="form-label">URL Screenshot</label>
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="newScreenshot" name="screenshotInput" [ngModelOptions]="{standalone: true}">
+            <button type="button" class="btn btn-outline-warning" (click)="addScreenshot()" [disabled]="!newScreenshot">Aggiungi</button>
+          </div>
+        </div>
+
+        @if (screenshots.controls.length > 0) {
+          <div class="col-12">
+            <div class="row g-3">
+              @for (ctrl of screenshots.controls; track $index) {
+                <div class="col-6 col-md-4">
+                  <div class="screenshot-thumb">
+                    <img [src]="ctrl.value" alt="Screenshot" class="img-fluid">
+                    <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1" (click)="removeScreenshot($index)">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="col-12 d-flex justify-content-center mt-4">
+          <button type="submit" class="btn btn-warning me-2">Salva</button>
+          <button type="button" class="btn btn-warning" (click)="reset()">Reset</button>
+        </div>
+
       </div>
     </form>
   </div>
