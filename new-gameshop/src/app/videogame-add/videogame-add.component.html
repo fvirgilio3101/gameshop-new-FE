@@ -25,23 +25,43 @@
       <!-- Piattaforme -->
       <div class="mb-3">
         <label class="form-label">Piattaforme</label>
-        <select class="form-select bg-dark text-white border-secondary" formControlName="platforms" multiple>
-          <option disabled>Seleziona una o più piattaforme</option>
-          @for (platform of availablePlatforms; track $index) {
-            <option [value]="platform">{{ platform.name }}</option>
-          }
-        </select>
+        <div class="dropdown">
+          <button class="btn btn-dark border-secondary dropdown-toggle w-100 text-start" type="button" data-bs-toggle="dropdown">
+            {{ selectedPlatformsLabel() }}
+          </button>
+          <ul class="dropdown-menu w-100 bg-dark text-white border-secondary">
+            @for (platform of availablePlatforms; track platform.id) {
+              <li>
+                <div class="form-check px-3">
+                  <input class="form-check-input" type="checkbox" [id]="'plat-' + platform.id"
+                    [checked]="isSelectedPlatform(platform)" (change)="togglePlatform(platform)">
+                  <label class="form-check-label" [for]="'plat-' + platform.id">{{ platform.name }}</label>
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
       </div>
 
       <!-- Generi -->
       <div class="mb-3">
         <label class="form-label">Genere</label>
-        <select class="form-select bg-dark text-white border-secondary" formControlName="genres" multiple>
-          <option disabled>Seleziona uno o più generi</option>
-          @for (genre of selectGenres(); track $index) {
-            <option [value]="genre">{{ genre.name }}</option>
-          }
-        </select>
+        <div class="dropdown">
+          <button class="btn btn-dark border-secondary dropdown-toggle w-100 text-start" type="button" data-bs-toggle="dropdown">
+            {{ selectedGenresLabel() }}
+          </button>
+          <ul class="dropdown-menu w-100 bg-dark text-white border-secondary">
+            @for (genre of genres(); track genre.name) {
+              <li>
+                <div class="form-check px-3">
+                  <input class="form-check-input" type="checkbox" [id]="'genre-' + genre.name"
+                    [checked]="isSelectedGenre(genre)" (change)="toggleGenre(genre)">
+                  <label class="form-check-label" [for]="'genre-' + genre.name">{{ genre.name }}</label>
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
       </div>
 
       <!-- Data di rilascio -->
@@ -77,9 +97,9 @@
         </div>
       </div>
 
-      @if(screenshots.controls.length > 0) {
+      @if (screenshots.controls.length > 0) {
         <div class="row g-3">
-          @for(ctrl of screenshots.controls; track $index) {
+          @for (ctrl of screenshots.controls; track $index) {
             <div class="col-6 col-md-4">
               <div class="position-relative border border-secondary rounded shadow-sm">
                 <img [src]="ctrl.value" class="img-fluid rounded" alt="Screenshot {{ $index + 1 }}">

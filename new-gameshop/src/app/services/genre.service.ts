@@ -12,10 +12,10 @@ export class GenreService{
 
   private readonly baseUrl = 'http://localhost:8082/it.ecubit.gameshop/api/genre'
 
-  private readonly genre_ = signal<Genres[]>([]);
+  genre_ = signal<Genres[]>([]);
 
   getGenre_(){
-    return this.genre_
+    return this.genre_()
   }
 
   readAllGenres():Observable<Genres[]>{

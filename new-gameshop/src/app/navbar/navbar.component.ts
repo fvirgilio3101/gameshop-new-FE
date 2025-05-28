@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit{
   hidePlatformBar = false;
   profileImageUrl = computed(() => this.profileService.profileImageUrl());
   readonly isLoggedIn = computed(() => this.auth.isLoggedIn());
-  readonly _role = computed(()=>this.auth.role())
+  readonly _role = computed(()=>this.auth.role());
   selected: string = '';
 
   platforms = [
