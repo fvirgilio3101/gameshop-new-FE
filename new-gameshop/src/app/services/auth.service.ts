@@ -3,24 +3,24 @@ import { inject, Injectable, signal } from '@angular/core';
 import { catchError, map, of, tap } from 'rxjs';
 import { User } from '../models/user';
 import { UserService } from './user.service';
-
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+ 
   private readonly http = inject(HttpClient);
   private readonly userService = inject(UserService);
-
+ 
   private readonly baseUrl = 'http://localhost:8082/it.ecubit.gameshop/';
-
+ 
   isLoggedIn = signal<boolean>(false);
   role = signal<string | null>(null);
-
+ 
   login(username: string, password: string) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = { username, password };
-
+ 
     return this.http.post(this.baseUrl + 'login', body, {
       headers,
       withCredentials: true,
@@ -36,7 +36,7 @@ export class AuthService {
       })
     );
   }
-
+ 
   logout() {
     this.http.get(this.baseUrl + 'logout', { withCredentials: true }).subscribe(() => {
       this.isLoggedIn.set(false);
@@ -46,7 +46,7 @@ export class AuthService {
       this.userService.profileImageUrl.set(null);
     });
   }
-
+ 
   register(user: any) {
     return this.http.post(
       this.baseUrl + 'api/user/register',
@@ -57,7 +57,7 @@ export class AuthService {
       }
     );
   }
-
+ 
   getUserDetails() {
     return this.http.get<User>(this.baseUrl + 'api/user/me', {
       withCredentials: true
@@ -74,7 +74,7 @@ export class AuthService {
       )
     );
   }
-
+ 
   checkAuth() {
     return this.http.get(this.baseUrl + 'auth/check', { withCredentials: true }).pipe(
       map(() => true),
@@ -90,3 +90,5 @@ export class AuthService {
     );
   }
 }
+ 
+ 

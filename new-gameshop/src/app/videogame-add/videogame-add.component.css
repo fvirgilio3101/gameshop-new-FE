@@ -1,0 +1,24 @@
+.form-control {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.form-control:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 6px #ff6600;
+}
+
+.list-group-item {
+  border: none;
+}
+
+.btn-outline-warning {
+  color: #ff6600;
+  border-color: #ff6600;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ff6600;
+  color: #000;
+}
