@@ -17,12 +17,13 @@ export class NavbarComponent implements OnInit{
   private readonly auth = inject(AuthService);
   private readonly profileService = inject(UserService);
   private readonly router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
+  private readonly cdr = inject(ChangeDetectorRef);
 
 
   hidePlatformBar = false;
   profileImageUrl = computed(() => this.profileService.profileImageUrl());
   readonly isLoggedIn = computed(() => this.auth.isLoggedIn());
+  readonly _role = computed(()=>this.auth.role())
   selected: string = '';
 
   platforms = [

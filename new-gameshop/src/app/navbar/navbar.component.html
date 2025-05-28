@@ -61,6 +61,13 @@
                 </a>
               </li>
               <li><hr class="dropdown-divider border-white opacity-100"></li>
+              @if(_role() == 'ROLE_ADMIN'){
+                <a class="dropdown-item text-white hover-dark" [routerLink]="['/admin/videogame']">
+                  <i class="bi bi-gear me-2"></i> Aggiungi Videogiochi
+                </a>
+                <li><hr class="dropdown-divider border-white opacity-100"></li>
+              }
+
               <li>
                 <button class="dropdown-item text-white d-flex align-items-center hover-dark" (click)="logout()">
                   <i class="bi bi-box-arrow-right me-2"></i> Logout

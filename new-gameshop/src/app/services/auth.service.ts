@@ -15,6 +15,7 @@ export class AuthService {
   private readonly baseUrl = 'http://localhost:8082/it.ecubit.gameshop/';
 
   isLoggedIn = signal<boolean>(false);
+  role = signal<string | null>(null);
 
   login(username: string, password: string) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -27,7 +28,7 @@ export class AuthService {
     }).pipe(
       tap(() => {
         this.isLoggedIn.set(true);
-        this.userService.loadProfileImage(); // Carica subito immagine profilo
+        this.userService.loadProfileImage();
       }),
       catchError(error => {
         this.isLoggedIn.set(false);
@@ -60,7 +61,18 @@ export class AuthService {
   getUserDetails() {
     return this.http.get<User>(this.baseUrl + 'api/user/me', {
       withCredentials: true
-    });
+    })
+      .pipe(
+        tap(user => {
+          this.role.set(user.role);
+        }
+      ),
+      catchError(() => {
+        this.role.set(null);
+        return of(null);
+        }
+      )
+    );
   }
 
   checkAuth() {
@@ -68,7 +80,8 @@ export class AuthService {
       map(() => true),
       tap(() => {
         this.isLoggedIn.set(true);
-        this.userService.loadProfileImage(); // Carica immagine profilo se già loggato
+        this.userService.loadProfileImage();
+        this.getUserDetails().subscribe();
       }),
       catchError(() => {
         this.isLoggedIn.set(false);
