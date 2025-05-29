@@ -97,6 +97,7 @@ export class VideogameAddComponent implements OnInit, OnDestroy {
   selectPlatform(platform: string) {
     this.selectedPlatform = platform;
     this.form.get('platform')?.setValue(platform);
+    console.log(this.form.get('platform')?.value)
   }
 
   addScreenshot() {
