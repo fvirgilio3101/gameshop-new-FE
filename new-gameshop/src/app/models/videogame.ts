@@ -10,7 +10,10 @@ export class Videogame{
   releaseDateVideogame : Date;
   platforms : string;
   coverImage: string;
-  screenshots: string[]
+  backgroundImage: string;
+  sales: number;
+  discount:string;
+  screenshots: string[];
 
   constructor(
     idVideogame:number,
@@ -21,6 +24,9 @@ export class Videogame{
     rating:number,
     releaseDate:Date,
     platforms : string,
+    backgroundImage: string,
+    sales: number,
+    discount:string,
     coverImage:string,
     screenshots:string[]
   ){
@@ -32,6 +38,9 @@ export class Videogame{
     this.rating = rating;
     this.releaseDateVideogame = releaseDate;
     this.platforms = platforms;
+    this.backgroundImage = backgroundImage;
+    this.sales = sales;
+    this.discount = discount;
     this.coverImage = coverImage;
     this.screenshots = screenshots;
   }

@@ -19,6 +19,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { GenreService } from '../services/genre.service';
 import { VideogameService } from '../services/videogame.service';
+import { Videogame } from '../models/videogame';
 
 @Component({
   selector: 'app-videogame-add',
@@ -70,6 +71,9 @@ export class VideogameAddComponent implements OnInit, OnDestroy {
       descVideogame: new FormControl(''),
       releaseDateVideogame: new FormControl<Date | null>(null),
       platform: new FormControl(''),
+      backgroundImage: new FormControl(''),
+      sales: new FormControl(''),
+      discount: new FormControl(''),
       coverImage: new FormControl(''),
       screenshots: new FormArray([]),
     });

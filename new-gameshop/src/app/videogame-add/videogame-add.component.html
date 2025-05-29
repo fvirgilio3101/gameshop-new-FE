@@ -5,13 +5,18 @@
     <form [formGroup]="form" (ngSubmit)="save()">
       <div class="row g-3">
 
-        <div class="col-md-6 mb-4">
+        <div class="col-12 mb-4">
           <input class="form-control" formControlName="titleVideogame" placeholder="Titolo...">
         </div>
 
         <div class="col-md-6 mb-4">
           <input type="number" class="form-control" formControlName="priceVideogame" placeholder="Prezzo (€)...">
         </div>
+
+        <div class="col-md-6 mb-4">
+          <input type="number" class="form-control" formControlName="discount" placeholder="Sconto (%)...">
+        </div>
+
 
         <div class="col-12 mb-4">
           <textarea rows="4" class="form-control" formControlName="descVideogame" placeholder="Descrizione..."></textarea>
@@ -64,6 +69,15 @@
           @if (form.get('coverImage')?.value) {
             <div class="text-center mt-3">
               <img alt="Cover" [src]="form.get('coverImage')?.value" class="img-fluid rounded shadow" style="max-height: 200px;">
+            </div>
+          }
+        </div>
+
+        <div class="col-12 mb-4">
+          <input type="text" class="form-control" formControlName="backgroundImage" placeholder="URL Immagine di background...">
+          @if (form.get('backgroundImage')?.value) {
+            <div class="text-center mt-3">
+              <img alt="Cover" [src]="form.get('backgroundImage')?.value" class="img-fluid rounded shadow" style="max-height: 200px;">
             </div>
           }
         </div>
