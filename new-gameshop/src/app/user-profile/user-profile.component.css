@@ -8,6 +8,14 @@
   --fire-gradient-hover: linear-gradient(10deg, #ffac15, #ff3131);
 }
 
+.text-orange{
+  color: var(--color-primary);
+}
+
+.text-hover{
+  color: var(--color-accent)
+}
+
 .form-control {
   background-color: var(--color-bg-input);
   color: var(--color-white);

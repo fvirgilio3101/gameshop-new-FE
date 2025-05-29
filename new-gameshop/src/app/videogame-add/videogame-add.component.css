@@ -24,6 +24,7 @@
   box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .3);
 }
 
+
 .form-control::placeholder {
   color: #fff !important;
   opacity: 1;

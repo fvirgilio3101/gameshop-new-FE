@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-transparent px-4 pt-3 position-relative z-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top py-3 px-4 navbar-custom">
   <div class="container-fluid position-relative">
 
     <!-- Logo -->
@@ -7,7 +7,7 @@
 
     <div #platformBar
       id="platformBar"
-      class="position-absolute top-50 start-50 translate-middle platform-selector"
+      class="position-absolute left-50 top-50 start-50 translate-middle platform-selector"
       [ngClass]="{ 'd-none': hidePlatformBar }">
       <div class="d-flex flex-nowrap align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm bg-dark bg-opacity-75">
         @for (platform of platforms; track $index) {
@@ -18,7 +18,7 @@
             {{ platform.label }}
           </a>
         }
-        <button class="btn btn-danger d-flex align-items-center justify-content-center btn-circle">
+        <button class="btn btn-search d-flex align-items-center justify-content-center btn-circle">
           <i class="bi bi-search text-white fs-5"></i>
         </button>
       </div>

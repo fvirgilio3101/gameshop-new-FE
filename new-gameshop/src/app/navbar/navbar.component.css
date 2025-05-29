@@ -1,3 +1,13 @@
+:host {
+  --color-primary: #ff5400;
+  --color-accent: #ffa700;
+  --color-bg-dark: #1e1e1e;
+  --color-bg-input: #2a2a2a;
+  --color-white: #ffffff;
+  --fire-gradient: linear-gradient(10deg, #ff8a15, #ff3131);
+  --fire-gradient-hover: linear-gradient(10deg, #ffac15, #ff3131);
+}
+
 .logo-gameshop {
   background: url(/assets/image/logo-gameshop.svg) no-repeat center center / contain;
   height: 60px;
@@ -6,29 +16,47 @@
 }
 
 .platform-selector {
-  max-width: 800px;
-  transition: opacity 0.3s ease-in-out;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  max-width: 100%;
+  transition: .2s;
+}
+
+.btn-search{
+  background: var(--fire-gradient);
+  color: var(--color-white);
+}
+
+.btn-search:hover{
+  background: var(--fire-gradient-hover);
+  color:var(--color-white);
+}
+
+.glossy{
+  backdrop-filter: blur(60px) saturate(100%);
+  -webkit-backdrop-filter: blur(60px) saturate(100%);
+  background-color: transparent;
 }
 
 .platform-button:hover {
   background-color: #555 !important;
 }
 
-.playstation{
+.playstation,
+.playstation:hover{
   background-color: #0970d8 !important;
 }
 
-.xbox{
+.xbox,
+.xbox:hover{
   background-color: #107c10 !important;
 }
 
-.nintendo{
+.nintendo,
+.nintendo:hover{
   background-color: #ff151f !important;
 }
 
-.pc{
+.pc,
+.pc:hover{
   background-color: #ff5400 !important;
 }
 .search-button{
