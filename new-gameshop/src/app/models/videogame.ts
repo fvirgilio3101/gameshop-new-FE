@@ -1,5 +1,4 @@
 import { Genres } from "./genres";
-import { Platform } from "./platform";
 
 export class Videogame{
   idVideogame : number;
@@ -9,7 +8,7 @@ export class Videogame{
   descVideogame : string;
   rating : number;
   releaseDateVideogame : Date;
-  platforms : Platform[];
+  platforms : string;
   coverImage: string;
   screenshots: string[]
 
@@ -21,7 +20,7 @@ export class Videogame{
     descVideogame:string,
     rating:number,
     releaseDate:Date,
-    platforms : Platform[],
+    platforms : string,
     coverImage:string,
     screenshots:string[]
   ){
