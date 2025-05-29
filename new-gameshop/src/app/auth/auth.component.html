@@ -20,7 +20,7 @@
           pattern="([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|[a-zA-Z0-9._-]{3,})"
           class="form-control bg-dark text-light"
           [ngClass]="{ 'is-invalid': usernameCtrl.invalid && usernameCtrl.touched }"
-          placeholder="Email o username" />
+          placeholder="Inserisci Email o username..." />
 
         @if (usernameCtrl.invalid && usernameCtrl.touched) {
           <div class="invalid-feedback">
@@ -46,7 +46,7 @@
           pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}"
           class="form-control bg-dark text-light"
           [ngClass]="{ 'is-invalid': passwordCtrl.invalid && passwordCtrl.touched }"
-          placeholder="••••••••" />
+          placeholder="Inserisci password..." />
 
         @if (passwordCtrl.invalid && passwordCtrl.touched) {
           <div class="invalid-feedback">

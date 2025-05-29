@@ -4,75 +4,82 @@
   --color-bg-dark: #1e1e1e;
   --color-bg-input: #2a2a2a;
   --color-white: #ffffff;
+  --fire-gradient: linear-gradient(10deg, #ff8a15, #ff3131);
+  --fire-gradient-hover: linear-gradient(10deg, #ffac15, #ff3131);
 }
 
-/* CARD */
 .card {
   background-color: var(--color-bg-dark);
   color: var(--color-white);
   border-radius: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
 }
 
 /* FORM */
 .form-control {
   background-color: var(--color-bg-input);
-  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .3);
-  height: 58px;
-  color: #fff;
+  color: var(--color-white);
   border: 0;
   border-radius: 0.5rem;
+  height: 58px;
+  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .3);
 }
 
-.form-control:focus {
+.form-control::placeholder {
+  color: #fff !important;
+  opacity: 1;
+}
+
+.form-control:hover,
+.form-control:focus{
   box-shadow: inset 0 0 0 2px var(--color-primary);
 }
+
+
 
 input[type='date']::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
-.form-label {
-  font-weight: 500;
-}
-
-/* DROPDOWN CON CHECKBOX */
-.dropdown-menu {
-  max-height: 300px;
-  overflow-y: auto;
-  background-color: var(--color-bg-input);
-  border: 1px solid #6c757d;
-  border-radius: 0.5rem;
-  z-index: 1000;
-  width: 100%;
-  padding: 0.5rem 0;
-}
-
-
-
-.dropdown-item:hover {
-  background-color: transparent;
-  color: var(--color-accent);
-}
 
 .dropdown-toggle {
   background-color: var(--color-bg-input);
   color: var(--color-white);
-  text-align: left;
-  width: 100%;
-  border: 1px solid #6c757d;
+  border: 0;
   border-radius: 0.5rem;
+  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .3);
+  padding: 0.75rem 1rem;
+  width: 100%;
+  min-height: 58px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  text-align: left;
 }
 
-.dropdown-toggle:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 0.2rem rgba(255, 167, 0, 0.25);
+.dropdown-toggle:hover,
+.dropdown-toggle:focus{
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--color-primary);
 }
 
+.dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: var(--color-bg-input);
+  border: 0;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, .3);
+  z-index: 1000;
+}
+
+.dropdown-item:hover {
+  background-color: var(--color-bg-input);
+  color: var(--color-accent);
+}
+
+/* CHECKBOX */
 .form-check {
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
   padding: 0.25rem 1rem;
   transition: background-color 0.2s;
@@ -97,31 +104,26 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .form-check-label {
-  cursor: pointer;
   color: var(--color-white);
+  cursor: pointer;
 }
 
 /* BOTTONI */
 .btn-warning {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--fire-gradient);
   color: var(--color-white);
+  height: 56px;
 }
 
-.btn-warning:hover {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #000;
+.btn-warning:hover,
+.btn-outline-warning:hover {
+  background: var(--fire-gradient-hover);
+  color: var(--color-white);
 }
 
 .btn-outline-warning {
   color: var(--color-accent);
   border-color: var(--color-accent);
-}
-
-.btn-outline-warning:hover {
-  background-color: var(--color-accent);
-  color: #000;
 }
 
 /* SCREENSHOTS */

@@ -53,7 +53,9 @@
 }
 
 
+
 .hover-dark:hover {
+  background-color: var(--color-bg-input);
   color: #ffa700 !important;
 }
 

@@ -10,7 +10,7 @@
       <!-- Nome -->
       <div class="col-md-6">
         <label class="form-label text-secondary">Nome</label>
-        <input type="text" formControlName="name" class="form-control"
+        <input type="text" formControlName="name" class="form-control" placeholder="Nome..."
           [ngClass]="{ 'is-invalid': registerForm.get('name')?.invalid && registerForm.get('name')?.touched }" />
         @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
           <small class="text-danger">
@@ -27,7 +27,7 @@
       <!-- Cognome -->
       <div class="col-md-6">
         <label class="form-label text-secondary">Cognome</label>
-        <input type="text" formControlName="surname" class="form-control"
+        <input type="text" formControlName="surname" class="form-control" placeholder="Cognome..."
           [ngClass]="{ 'is-invalid': registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched }" />
         @if (registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched) {
           <small class="text-danger">
@@ -44,7 +44,7 @@
       <!-- Email -->
       <div class="col-md-6">
         <label class="form-label text-secondary">Email</label>
-        <input type="email" formControlName="email" class="form-control"
+        <input type="email" formControlName="email" class="form-control" placeholder="Email..."
           [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }" />
         @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
           <small class="text-danger">
@@ -61,7 +61,7 @@
       <!-- Username -->
       <div class="col-md-6">
         <label class="form-label text-secondary">Username</label>
-        <input type="text" formControlName="username" class="form-control"
+        <input type="text" formControlName="username" class="form-control" placeholder="Username..."
           [ngClass]="{ 'is-invalid': registerForm.get('username')?.invalid && registerForm.get('username')?.touched }" />
         @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
           <small class="text-danger">Lo username è obbligatorio.</small>
@@ -71,7 +71,7 @@
       <!-- Password -->
       <div class="col-md-6">
         <label class="form-label text-secondary">Password</label>
-        <input type="password" formControlName="password" class="form-control"
+        <input type="password" formControlName="password" class="form-control" placeholder="Password..."
           [ngClass]="{ 'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched }" />
         @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
           <small class="text-danger">
@@ -88,7 +88,7 @@
       <!-- Indirizzo -->
       <div class="col-md-6">
         <label class="form-label text-secondary">Indirizzo</label>
-        <input type="text" formControlName="address" class="form-control"
+        <input type="text" formControlName="address" class="form-control" placeholder="Indirizzo..."
           [ngClass]="{ 'is-invalid': registerForm.get('address')?.invalid && registerForm.get('address')?.touched }" />
         @if (registerForm.get('address')?.invalid && registerForm.get('address')?.touched) {
           <small class="text-danger">L'indirizzo è obbligatorio.</small>
@@ -98,7 +98,7 @@
       <!-- Cellulare -->
       <div class="col-md-6">
         <label class="form-label text-secondary">Cellulare</label>
-        <input type="text" formControlName="phone_number" class="form-control"
+        <input type="text" formControlName="phone_number" class="form-control" placeholder="Numero di cellulare..."
           [ngClass]="{ 'is-invalid': registerForm.get('phone_number')?.invalid && registerForm.get('phone_number')?.touched }" />
         @if (registerForm.get('phone_number')?.invalid && registerForm.get('phone_number')?.touched) {
           <small class="text-danger">

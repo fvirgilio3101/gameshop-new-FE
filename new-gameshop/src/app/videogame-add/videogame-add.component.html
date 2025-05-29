@@ -7,24 +7,24 @@
 
         <div class="col-md-6">
           <label class="form-label">Titolo</label>
-          <input class="form-control" formControlName="titleVideogame" placeholder="Titolo">
+          <input class="form-control" formControlName="titleVideogame" placeholder="Titolo...">
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Prezzo (€)</label>
-          <input type="number" class="form-control" formControlName="priceVideogame">
+          <input type="number" class="form-control" formControlName="priceVideogame" placeholder="Prezzo...">
         </div>
 
         <div class="col-12">
           <label class="form-label">Descrizione</label>
-          <textarea rows="4" class="form-control" formControlName="descVideogame"></textarea>
+          <textarea rows="4" class="form-control" formControlName="descVideogame" placeholder="Descrizione..."></textarea>
         </div>
 
         <!-- Dropdown Piattaforme -->
         <div class="col-md-6">
           <label class="form-label">Piattaforme</label>
           <div class="dropdown">
-            <button class="btn dropdown-toggle border" type="button" data-bs-toggle="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
               {{ selectedPlatformsLabel() }}
             </button>
             <ul class="dropdown-menu">
@@ -45,7 +45,7 @@
         <div class="col-md-6">
           <label class="form-label">Genere</label>
           <div class="dropdown">
-            <button class="btn dropdown-toggle border" type="button" data-bs-toggle="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
               {{ selectedGenresLabel() }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -64,12 +64,12 @@
 
         <div class="col-md-6">
           <label class="form-label">Data di rilascio</label>
-          <input type="date" class="form-control" formControlName="releaseDateVideogame">
+          <input type="date" class="form-control" formControlName="releaseDateVideogame" placeholder="Data di rilascio...">
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Copertina</label>
-          <input type="text" class="form-control" formControlName="coverImage">
+          <input type="text" class="form-control" formControlName="coverImage" placeholder="URL Immagine di copertina...">
           @if (form.get('coverImage')?.value) {
             <div class="text-center mt-3">
               <img alt="Cover" [src]="form.get('coverImage')?.value" class="img-fluid rounded shadow" style="max-height: 200px;">
@@ -81,7 +81,7 @@
           <h5 class="text-warning mt-4">Screenshots</h5>
           <label class="form-label">URL Screenshot</label>
           <div class="input-group">
-            <input type="text" class="form-control" [(ngModel)]="newScreenshot" name="screenshotInput" [ngModelOptions]="{standalone: true}">
+            <input type="text" class="form-control" [(ngModel)]="newScreenshot" name="screenshotInput" [ngModelOptions]="{standalone: true}" placeholder="URL Screenshot">
             <button type="button" class="btn btn-outline-warning" (click)="addScreenshot()" [disabled]="!newScreenshot">Aggiungi</button>
           </div>
         </div>
@@ -91,7 +91,7 @@
             <div class="row g-3">
               @for (ctrl of screenshots.controls; track $index) {
                 <div class="col-6 col-md-4">
-                  <div class="screenshot-thumb">
+                  <div class="screenshot-thumb position-relative">
                     <img [src]="ctrl.value" alt="Screenshot" class="img-fluid">
                     <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1" (click)="removeScreenshot($index)">
                       <i class="bi bi-x-lg"></i>
