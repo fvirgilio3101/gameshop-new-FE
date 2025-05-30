@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Component, computed, inject, OnInit } from '@angular/core';
+import { VideogameService } from '../services/videogame.service';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CommonModule,RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
+  private readonly videogameService = inject(VideogameService);
+
+  games = computed(()=>this.videogameService.videogames());
+
+  ngOnInit(): void {
+    this.videogameService.getTrendingVideogames();
+  }
 }

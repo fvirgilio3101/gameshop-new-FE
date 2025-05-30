@@ -1,64 +1,133 @@
-/* Contenitore generale */
-.container {
-  background-color: #121212;
-  color: #eee;
+:host {
+  --color-primary: #ff5400;
+  --color-accent: #ffa700;
+  --color-bg-dark: #1e1e1e;
+  --color-bg-input: #2a2a2a;
+  --color-white: #ffffff;
+  --fire-gradient: linear-gradient(10deg, #ff8a15, #ff3131);
+  --fire-gradient-hover: linear-gradient(10deg, #ffac15, #ff3131);
+}
+.max-w-1200 {
+  max-width: 1200px;
 }
 
-/* Card gioco */
-.game-card {
-  border-radius: 0.75rem;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
-  }
+.flex-gap-30 {
+  --gap: 30px;
+  gap: var(--gap);
 }
 
-/* Immagine gioco */
-.game-card img {
-  border-bottom: 1px solid #333;
-  height: 150px;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
+.card {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.card:focus,
+.card:focus-within,
+.card *:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-/* Titolo gioco */
-.card-title {
-  font-weight: 600;
-  font-size: 0.85rem;
-  white-space: nowrap;
+.column-flex-card {
+  --gap-small: 15px;
+  --columns: 3;
+  gap: var(--gap-small);
+  min-width: 0;
+  width: calc(100% / var(--columns) - var(--gap) + var(--gap) / var(--columns));
+}
+
+.gap-7{
+  gap: 7px;
+}
+
+.bg-card{
+  background-color: var(--color-bg-input);
+}
+
+.discount {
+  background-color: var(--color-primary);
+  border-radius: 5px 5px 0;
+  font-weight: 700;
+  padding: 5px 6px 6px 7px;
+  z-index: 2;
+  bottom: -2px;
+  left: -3px;
+  transition: .2s;
+}
+
+.cover{
+  aspect-ratio: 16 / 9.2;
+  display: flex;
+  position: relative;
+  transition: transform .3s;
+}
+
+a:hover{
+  transform: scale(1.05);
+}
+
+.name{
+  font-size: 15px;
+  gap: 10px;
+  min-width: 0;
+}
+
+.title{
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2;
+  white-space: nowrap;
 }
 
-/* Prezzo */
-.text-success {
+.price{
+  font-size: 21px;
   font-weight: 700;
-  font-size: 1rem;
+  line-height: 17px;
+  margin-left: auto;
+}
+.platform{
+  left: 10px;
+  top:10px;
+  transition: .2s;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  flex: 0 0 38px;
+  justify-content: center;
+  width: 38px;
 }
 
-/* Piattaforme */
-.text-muted {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+
+.bi-playstation{
+  background-color: #0970d8 !important;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  flex: 0 0 38px;
+  justify-content: center;
+  width: 38px;
 }
 
-/* Sconto */
-.position-absolute.bg-danger {
-  font-weight: 700;
-  font-size: 0.75rem;
-  border-bottom-right-radius: 0.5rem;
-  user-select: none;
-  z-index: 10;
+
+.bi-xbox{
+  background-color: #107c10 !important;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  flex: 0 0 38px;
+  justify-content: center;
+  width: 38px;
 }
 
-/* Messaggio "Nessun gioco" */
-.text-center.text-muted {
-  font-size: 1.1rem;
-  margin-top: 2rem;
+.bi-nintendo{
+  background-color: #ff151f !important;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  flex: 0 0 38px;
+  justify-content: center;
+  width: 38px;
 }

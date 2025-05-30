@@ -3,6 +3,7 @@
   --color-accent: #ffa700;
   --color-bg-dark: #1e1e1e;
   --color-bg-input: #2a2a2a;
+  --color-medium: #3d3d3d;
   --color-white: #ffffff;
   --fire-gradient: linear-gradient(10deg, #ff8a15, #ff3131);
   --fire-gradient-hover: linear-gradient(10deg, #ffac15, #ff3131);
@@ -33,7 +34,7 @@
 .glossy{
   backdrop-filter: blur(60px) saturate(100%);
   -webkit-backdrop-filter: blur(60px) saturate(100%);
-  background-color: transparent;
+  background-color: var(--color-medium);
 }
 
 .platform-button:hover {
