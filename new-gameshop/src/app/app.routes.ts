@@ -47,4 +47,10 @@ export const routes: Routes = [
   component: PlatformPageComponent,
 },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+  path: 'trendings',
+  loadComponent: () =>
+    import('./trendings/trendings.component').then(m => m.TrendingsComponent),
+},
+
 ];

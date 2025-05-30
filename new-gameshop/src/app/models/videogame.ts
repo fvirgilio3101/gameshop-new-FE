@@ -12,7 +12,7 @@ export class Videogame{
   coverImage: string;
   backgroundImage: string;
   sales: number;
-  discount:string;
+  discount: number;
   screenshots: string[];
 
   constructor(
@@ -26,7 +26,7 @@ export class Videogame{
     platforms : string,
     backgroundImage: string,
     sales: number,
-    discount:string,
+    discount:number,
     coverImage:string,
     screenshots:string[]
   ){

@@ -49,4 +49,12 @@ export class VideogameService {
       withCredentials: true,
     });
   }
+
+ getTrendingVideogames() {
+  this.http
+    .get<Videogame[]>('http://localhost:8082/it.ecubit.gameshop/api/index/trendings')
+    .subscribe(data => this.videogameSignal.set(data));
+}
+
+
 }

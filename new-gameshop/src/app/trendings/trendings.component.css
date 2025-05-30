@@ -1,0 +1,64 @@
+/* Contenitore generale */
+.container {
+  background-color: #121212;
+  color: #eee;
+}
+
+/* Card gioco */
+.game-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Immagine gioco */
+.game-card img {
+  border-bottom: 1px solid #333;
+  height: 150px;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+/* Titolo gioco */
+.card-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+/* Prezzo */
+.text-success {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Piattaforme */
+.text-muted {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Sconto */
+.position-absolute.bg-danger {
+  font-weight: 700;
+  font-size: 0.75rem;
+  border-bottom-right-radius: 0.5rem;
+  user-select: none;
+  z-index: 10;
+}
+
+/* Messaggio "Nessun gioco" */
+.text-center.text-muted {
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
