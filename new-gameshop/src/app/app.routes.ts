@@ -30,6 +30,21 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./videogame-add/videogame-add.component').then((m) => m.VideogameAddComponent),
   },
-  { path: ':platform', component: PlatformPageComponent },
+{
+  path: 'PC',
+  component: PlatformPageComponent,
+},
+{
+  path: 'PlayStation',
+  component: PlatformPageComponent,
+},
+{
+  path: 'Xbox',
+  component: PlatformPageComponent,
+},
+{
+  path: 'Nintendo',
+  component: PlatformPageComponent,
+},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
