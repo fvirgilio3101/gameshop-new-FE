@@ -7,7 +7,7 @@
     @for (game of games(); track game.idVideogame) {
       <div class="card bg-card d-flex flex-column position-relative z-1 column-flex-card">
         <a class="cover text-white text-decoration-none"
-          [routerLink]="['/videogame', game.titleVideogame]"
+          [routerLink]="['/videogame', game.idVideogame]"
           title="{{game.titleVideogame}}"
         >
           <picture>
