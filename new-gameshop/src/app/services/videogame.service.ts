@@ -14,6 +14,9 @@ export class VideogameService {
 
   videogames = this.videogameSignal.asReadonly();
 
+  bestSellerSignal = signal<Videogame[]>([]);
+  bestSellers = this.bestSellerSignal.asReadonly();
+
   readAllVideogame(){
     this.http.get<Videogame[]>(this.baseUrl, {withCredentials : true}).subscribe(data => this.videogameSignal.set(data));
   }
@@ -55,6 +58,13 @@ export class VideogameService {
     .get<Videogame[]>('http://localhost:8082/it.ecubit.gameshop/api/index/trendings')
     .subscribe(data => this.videogameSignal.set(data));
 }
+
+getBestSellingVideogames() {
+  this.http
+    .get<Videogame[]>('http://localhost:8082/it.ecubit.gameshop/api/videogame/best-sellers-db')
+    .subscribe(data => this.bestSellerSignal.set(data));
+}
+
 
 
 }

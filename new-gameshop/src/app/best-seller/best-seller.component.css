@@ -1,0 +1,124 @@
+:host {
+  --color-primary: #ff5400;
+  --color-accent: #ffa700;
+  --color-bg-dark: #1e1e1e;
+  --color-bg-input: #2a2a2a;
+  --color-white: #ffffff;
+  --fire-gradient: linear-gradient(10deg, #ff8a15, #ff3131);
+  --fire-gradient-hover: linear-gradient(10deg, #ffac15, #ff3131);
+}
+.max-w-1200 {
+  max-width: 1200px;
+}
+
+.flex-gap-30 {
+  --gap: 30px;
+  gap: var(--gap);
+}
+
+.card {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.card:focus,
+.card:focus-within,
+.card *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.column-flex-card {
+  --gap-small: 15px;
+  --columns: 3;
+  gap: var(--gap-small);
+  min-width: 0;
+  width: calc(100% / var(--columns) - var(--gap) + var(--gap) / var(--columns));
+}
+
+.gap-7{
+  gap: 7px;
+}
+
+.bg-card{
+  background-color: var(--color-bg-input);
+}
+
+
+
+.cover{
+  aspect-ratio: 16 / 9.2;
+  display: flex;
+  position: relative;
+  transition: transform .3s;
+}
+
+a:hover{
+  transform: scale(1.05);
+}
+
+.name{
+  font-size: 15px;
+  gap: 10px;
+  min-width: 0;
+}
+
+.title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.price{
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 17px;
+  margin-left: auto;
+}
+.platform{
+  left: 10px;
+  top:10px;
+  transition: .2s;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  flex: 0 0 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+
+.bi-playstation{
+  background-color: #0970d8 !important;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  flex: 0 0 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+
+.bi-xbox{
+  background-color: #107c10 !important;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  flex: 0 0 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+.bi-nintendo{
+  background-color: #ff151f !important;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  flex: 0 0 38px;
+  justify-content: center;
+  width: 38px;
+}
