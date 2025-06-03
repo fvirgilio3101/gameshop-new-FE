@@ -15,6 +15,7 @@ export class Videogame{
   discount: number;
   discountedPrice:number;
   screenshots: string[];
+  features: string[];
 
   constructor(
     idVideogame:number,
@@ -30,7 +31,8 @@ export class Videogame{
     discount:number,
     discountedPrice:number,
     coverImage:string,
-    screenshots:string[]
+    screenshots:string[],
+    features: string[]
   ){
     this.idVideogame = idVideogame;
     this.titleVideogame = titleVideogame;
@@ -46,7 +48,7 @@ export class Videogame{
     this.discountedPrice = discountedPrice;
     this.coverImage = coverImage;
     this.screenshots = screenshots;
+    this.features = features;
   }
-
 
 }

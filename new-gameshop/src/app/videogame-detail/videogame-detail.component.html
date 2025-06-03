@@ -1,0 +1,118 @@
+@if(game_();as game){
+  <div class="d-flex flex-column justify-content-between h-100 mb-auto main-content">
+    <div class="d-flex flex-column">
+
+      <!-- Background Image -->
+      <div class="position-relative d-flex justify-content-center align-items-center header-game">
+        <div class="w-100 z-1 top-0 position-absolute header-top-gradient"></div>
+        <picture class="position-absolute d-flex justify-content-center bottom-0 top-0 right-0 left-0">
+          <img [src]="game.backgroundImage" [alt]="game.titleVideogame" class="h-100 w-100">
+        </picture>
+      </div>
+
+      <!-- Panel -->
+      <div class="d-flex flex-column w-auto position-relative z-1 content">
+        <div class="d-flex flex-column">
+          <div class="d-flex align-items-start gap-60">
+            <div class="d-flex position-relative flex-column presentation">
+              <picture class="d-flex justify-content-center">
+                <img [src]="game.coverImage" [alt]="game.titleVideogame" class="w-100 cover-img">
+              </picture>
+            </div>
+            <div class="align-items-center bg-transparent d-flex flex-column h-100  w-100 justify-content-between z-3 panel wide">
+              <div class="d-flex align-items-center justify-content-between gap-10">
+                <h4 clas="game-title smaller text-white">{{game.titleVideogame}}</h4>
+              </div>
+              <div class="d-flex align-items-baseine gap-10 mt-auto">
+                <div class="d-flex align-items-baseline justify-content-end me-auto">
+                  <i class="position-relative bi bi-tag text-white"></i>
+                </div>
+                <div class="retail">
+                  {{game.priceVideogame | currency :'EUR'}}
+                </div>
+                <div class="discounted">
+                  -{{game.discount}}%
+                </div>
+                <div class="d-flex align-items-baseline justify-content-end total me-1">
+                  {{game.discountedPrice | currency: 'EUR'}}
+                </div>
+              </div>
+              <div class="d-flex gap-10 w-100">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- About -->
+        <div class="d-flex flex-column gap-15">
+
+          <div class="d-flex gap-90">
+            <div class="d-flex flex-column me-0 w-55 product-text">
+              <div class="gap-15 align-items-center align-self-center d-flex justify-content-between w-100 headline">
+                <h2>Riguardo al prodotto</h2>
+              </div>
+              <div class="text readable">
+                {{game.descVideogame}}
+              </div>
+            </div>
+            <div class="d-flex flex-column w-100">
+              <ul class="d-flex text-start specifics">
+                <li class="d-flex align-items-center justify-content-between">
+                  <div class="release-date-label">
+                     Data di rilascio:
+                  </div>
+                  <div class="w-100">
+                    {{game.releaseDateVideogame | date:'dd MMMM yyyy'}}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="d-flex align-items-center flex-wrap genre-tags">
+            <span>Genere:</span>
+            @for(genre of game.genres;track $index){
+              <a [title]="genre.name" class="genre">
+                {{genre.name | uppercase}}
+              </a>
+            }
+          </div>
+        </div>
+
+        <!-- Immagini -->
+        <div>
+          <div class="d-flex align-items-center align-self-center justify-content-between w-100 head">
+            <h2>Immagini</h2>
+          </div>
+          <div class="d-flex flex-column gap-30">
+            <div class="grid-4">
+              @for (screenshot of game.screenshots; track $index) {
+                <a data-fancybox="gallery" [title]="$index + 1" [href]="screenshot">
+                  <picture class="d-flex">
+                    <img [src]="screenshot" class="w-100 screenshot" [alt]="$index + 1">
+                  </picture>
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Features -->
+        @if(game.features){
+          <div>
+            <div class="d-flex align-items-center align-self-center justify-content-between w-100 head">
+              <h2>Game Features</h2>
+            </div>
+            <div class="d-flex gap-15 flex-wrap justify-content-center">
+              @for(feature of game.features;track $index){
+                <a class="d-flex flex-column align-items-center justify-content-center text-center feature">
+                  {{feature}}
+                </a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+}
