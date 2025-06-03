@@ -44,7 +44,16 @@
   background-color: var(--color-bg-input);
 }
 
-
+.discount {
+  background-color: var(--color-primary);
+  border-radius: 5px 5px 0;
+  font-weight: 700;
+  padding: 5px 6px 6px 7px;
+  z-index: 2;
+  bottom: -2px;
+  left: -3px;
+  transition: .2s;
+}
 
 .cover{
   aspect-ratio: 16 / 9.2;

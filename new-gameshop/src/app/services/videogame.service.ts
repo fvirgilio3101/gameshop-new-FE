@@ -61,7 +61,7 @@ export class VideogameService {
 
 getBestSellingVideogames() {
   this.http
-    .get<Videogame[]>('http://localhost:8082/it.ecubit.gameshop/api/videogame/best-sellers-db')
+    .get<Videogame[]>('http://localhost:8082/it.ecubit.gameshop/api/index/best-sellers')
     .subscribe(data => this.bestSellerSignal.set(data));
 }
 
