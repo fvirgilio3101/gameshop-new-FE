@@ -57,5 +57,10 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./trendings/trendings.component').then(m => m.TrendingsComponent),
 },
+{
+  path: 'best-sellers',
+  loadComponent: () =>
+    import('./best-seller/best-seller.component').then(m => m.BestSellerComponent),
+},
 
 ];

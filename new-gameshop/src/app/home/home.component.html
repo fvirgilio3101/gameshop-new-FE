@@ -56,3 +56,58 @@
   }
 </div>
 
+  <div class="container mt-5 mb-5 py-4 text-white d-flex flex-column align-self-center h-100 w-100 max-w-1200">
+  <div class="w-100 max-w-1200 mb-4 d-flex justify-content-between align-self-center align-items-center">
+    <a [routerLink]="['/best-sellers']" title="In tendenza" class="d-flex align-items-center text-white text-decoration-none">
+      <h2 class="headline fw-bold">Piu venduti</h2>
+      <i class="bi bi-chevron-right"></i>
+    </a>
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-center position-relative flex-gap-30">
+    @for (game of bestSellerGames(); track game.idVideogame) {
+      <div class="card bg-card d-flex flex-column position-relative z-1 column-flex-card">
+        <a class="cover text-white text-decoration-none"
+          [routerLink]="['/videogame', game.titleVideogame]"
+          title="{{game.titleVideogame}}"
+        >
+          <picture>
+            <img [src]="game.backgroundImage || game.coverImage"
+                 class="w-100 h-100 object-fit-cover overflow-hidden rounded shadow-sm"
+                 [alt]="game.titleVideogame"
+                 style="transition: transform 0.3s ease;">
+          </picture>
+          @if(game.platforms && game.platforms != 'PC'){
+            <div class="position-absolute z-1 platform">
+              @if(game.platforms.includes('PlayStation')){
+                <i class="bi bi-playstation playstation fs-4"></i>
+              }@else if (game.platforms.includes('Xbox')) {
+                <i class="bi bi-xbox fs-4"></i>
+              }@else if (game.platforms.includes('Nintendo')) {
+                <i class="bi bi-nintendo fs-4"></i>
+              }
+            </div>
+          }
+        </a>
+        <div class="d-flex position-relative gap-7 z-1">
+          <div class="d-flex align-items-center name">
+            <span class="text-white title" title="{{ game.titleVideogame }}">
+              {{ game.titleVideogame }}
+            </span>
+          </div>
+
+          <div class="price text-white">
+            {{ game.discountedPrice | currency: 'EUR' }}
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (games().length === 0) {
+    <p class="text-center text-muted mt-4">Nessun gioco disponibile.</p>
+  }
+</div>
+
+
+

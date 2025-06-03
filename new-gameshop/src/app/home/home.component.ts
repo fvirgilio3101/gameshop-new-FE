@@ -14,8 +14,10 @@ export class HomeComponent implements OnInit {
   private readonly videogameService = inject(VideogameService);
 
   games = computed(()=>this.videogameService.videogames());
+  bestSellerGames = computed(()=> this.videogameService.bestSellers())
 
   ngOnInit(): void {
     this.videogameService.getTrendingVideogames();
+    this.videogameService.getBestSellingVideogames();
   }
 }
