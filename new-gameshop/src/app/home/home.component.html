@@ -69,7 +69,7 @@
   </div>
 
   <div class="d-flex flex-wrap justify-content-center position-relative flex-gap-30">
-    @for (game of bestSellerGames(); track game.idVideogame) {
+    @for (game of bestSellerGames().slice(0,9); track game.idVideogame) {
       <div class="card bg-card d-flex flex-column position-relative z-1 column-flex-card">
         <a class="cover text-white text-decoration-none"
           [routerLink]="['/videogame', game.idVideogame]"
