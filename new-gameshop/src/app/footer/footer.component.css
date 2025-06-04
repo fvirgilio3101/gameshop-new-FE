@@ -2,31 +2,102 @@
   background-color: #101010 !important;
 }
 
-.icon-custom-color {
+.p-30{
+  padding: 30px;
+}
+
+.g-30{
+  gap: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+    .g-30 {
+        gap: 20px;
+    }
+}
+
+.max-w-1200{
+  max-width: 1200px;
+}
+
+@media screen and (max-width: 1000px) {
+    .p-30{
+      padding-left: 0;
+      padding-right: 0;
+    }
+}
+
+.g-10{
+  gap: 10px;
+}
+
+.g-15{
+  gap: 15px;
+}
+
+.icon-custom {
   color: #ff5400;
+  transition: 0s;
 }
 
 .footer-link {
   color: #cfd2d6;
   text-decoration: none;
   transition: color 0.3s;
-  font-size: 1.10rem;
 }
 
 .footer-link:hover {
   color: #ffa700;
 }
 
+.bi-discord{
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.bi-gift{
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.bi-newspaper{
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.hr-vertical {
+  width: 1px;
+  height: auto;
+  align-self: stretch;
+  border-left: 1px solid hsla(0, 0%, 100%, 0.2);
+  margin: 0 15px;
+}
+
+hr{
+  border-bottom: 1px;
+  border-right: 1px;
+  border-color: hsla(0, 0%, 100%, .2);
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.none{
+  display: none;
+}
+
+.border-100{
+  border-radius: 100%;
+}
+
 .social-btn {
-  width: 50px;
-  height: 50px;
-  font-size: 2rem;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: none;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  aspect-ratio: 1 / 1;
+  transition: .1s;
+  width: 55px;
 }
 
 .social-btn:hover {
@@ -34,7 +105,30 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Social Brand Colors (bg semi-trasparente + icona piena) */
+.app{
+  border: 1px solid hsla(0, 0%, 100%, .3);
+  border-radius: 7px;
+  font-size: 13px;
+  gap: 10px;
+  line-height: 15px;
+  padding: 12px 17px;
+}
+
+.w-92{
+  width: 92px;
+}
+
+.icon-chrome{
+  background-image: url(/assets/image/icon-chrome.svg);
+  background-size: 100%;
+}
+
+.icon-s{
+  flex: 0 0 25px;
+  height: 25px;
+  width: 25px;
+}
+
 .facebook {
   background-color: rgba(59, 89, 152, 0.15);
   color: #3b5998;
@@ -63,4 +157,12 @@
 .twitch {
   background-color: rgba(145, 70, 255, 0.15);
   color: #9146ff;
+}
+
+.geo-selected {
+  width: 1px;
+  height: auto;
+  align-self: stretch;
+  border-left: 1px solid hsla(0, 0%, 100%, 0.2);
+  margin: 0 15px;
 }
