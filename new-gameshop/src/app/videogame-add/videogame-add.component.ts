@@ -19,7 +19,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { GenreService } from '../services/genre.service';
 import { VideogameService } from '../services/videogame.service';
-import { Videogame } from '../models/videogame';
 
 @Component({
   selector: 'app-videogame-add',
@@ -55,6 +54,9 @@ export class VideogameAddComponent implements OnInit, OnDestroy {
       ? this.selectedGenres().map((g) => g.name).join(', ')
       : 'Seleziona i generi'
   );
+
+  readonly successMessage = signal<string | null>(null);
+  readonly errorMessage = signal<string | null>(null);
 
   ngOnInit() {
     this.initForm();
@@ -116,17 +118,41 @@ export class VideogameAddComponent implements OnInit, OnDestroy {
     this.screenshots.removeAt(index);
   }
 
+  showMessage(type: 'success' | 'error', message: string, duration = 5000) {
+  if (type === 'success') {
+    this.successMessage.set(message);
+    this.errorMessage.set(null);
+  } else {
+    this.errorMessage.set(message);
+    this.successMessage.set(null);
+  }
+
+  setTimeout(() => {
+    this.successMessage.set(null);
+    this.errorMessage.set(null);
+  }, duration);
+}
+
   save() {
     if (this.form.valid) {
       this.service
         .createVideogame(this.form.value)
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe();
+        .subscribe({
+          next: () => {
+            this.showMessage('success', 'Videogioco aggiunto con successo!');
+            this.reset();
+          },
+          error: () => {
+            this.showMessage('error', 'Errore durante il salvataggio. Riprova.');
+          }
+        });
     }
   }
 
   reset() {
     this.form.reset();
+    this.screenshots.controls.splice(0);
     this.selectedGenres.set([]);
     this.genreService.genre_.set([]);
   }

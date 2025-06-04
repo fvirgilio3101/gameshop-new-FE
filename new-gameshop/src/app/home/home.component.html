@@ -28,13 +28,13 @@
               }@else if (game.platforms.includes('Xbox')) {
                 <i class="bi bi-xbox fs-4"></i>
               }@else if (game.platforms.includes('Nintendo')) {
-                <i class="bi bi-nintendo fs-4"></i>
+                <i class="bi bi-nintendo-switch fs-4"></i>
               }
             </div>
           }
           @if ((game.discount) > 0) {
             <div class="discount position-absolute text-white small  z-2">
-              -{{ game.discount }}%
+              - {{ game.discount }}%
             </div>
           }
         </a>
@@ -61,7 +61,7 @@
 <div class="container mt-5 mb-5 py-4 text-white d-flex flex-column align-self-center h-100 w-100 max-w-1200">
   <div class="w-100 max-w-1200 mb-4 d-flex justify-content-between align-self-center align-items-center">
     <a [routerLink]="['/best-sellers']" title="In tendenza" class="d-flex align-items-center text-white text-decoration-none">
-      <h2 class="headline fw-bold">Piu venduti</h2>
+      <h2 class="headline fw-bold">Più venduti</h2>
       <i class="bi bi-chevron-right"></i>
     </a>
   </div>
@@ -86,13 +86,13 @@
               }@else if (game.platforms.includes('Xbox')) {
                 <i class="bi bi-xbox fs-4"></i>
               }@else if (game.platforms.includes('Nintendo')) {
-                <i class="bi bi-nintendo fs-4"></i>
+                <i class="bi bi-nintendo-switch fs-4"></i>
               }
             </div>
           }
           @if ((game.discount) > 0) {
             <div class="discount position-absolute text-white small  z-2">
-              -{{ game.discount }}%
+              - {{ game.discount }}%
             </div>
           }
         </a>

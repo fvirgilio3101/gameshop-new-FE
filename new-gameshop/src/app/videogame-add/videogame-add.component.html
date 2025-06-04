@@ -112,6 +112,17 @@
           <button type="button" class="btn btn-warning" (click)="reset()">Reset</button>
         </div>
 
+        @if (successMessage()) {
+          <div class="alert alert-success text-center" role="alert">
+            {{ successMessage() }}
+          </div>
+        }
+
+        @if (errorMessage()) {
+          <div class="alert alert-danger text-center" role="alert">
+            {{ errorMessage() }}
+          </div>
+        }
       </div>
     </form>
   </div>
