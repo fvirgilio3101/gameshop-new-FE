@@ -3,11 +3,142 @@
   --color-accent: #ffa700;
   --color-bg-dark: #1e1e1e;
   --color-bg-input: #2a2a2a;
+  --color-dark: #272727;
   --color-white: #ffffff;
   --fire-gradient: linear-gradient(10deg, #ff8a15, #ff3131);
   --fire-gradient-hover: linear-gradient(10deg, #ffac15, #ff3131);
-  --color-medium-light:#6d6d6d;
+  --color-light: #a8a8a8;
+  --color-medium-dark: #323232;
+  --color-very-dark: #1d1d1d;
 }
+
+.main-content{
+  --separator: 80px;
+  gap: var(--separator);
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.object-cover{
+  object-fit: cover;
+}
+
+.bg-very-dark{
+  background-color: var(--color-very-dark);
+}
+
+.highlights-container{
+  --item-padding: 30px;
+  background-color: var(--color-very-dark);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 60vh;
+  justify-content: center;
+  margin-top:-50px;
+  margin-bottom: -80px;
+  margin-left: -30px;
+  margin-right: -30px;
+  max-height: 620px;
+  min-height: 550px;
+  overflow: hidden;
+  padding: var(--item-padding);
+}
+
+.highlights-container:after {
+  background: var(--color-dark);
+  bottom: -1px;
+  clip-path: polygon(0 100%, 100% 100%, 0 0);
+  content: "";
+  height: 60px;
+  min-width: 1700px;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.g-30{
+  gap:30px
+}
+
+@media screen and (max-width: 1400px) {
+  .hightlights-container {
+      height: 50vh;
+      min-height: 500px;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  .top-banner {
+    height: 400px;
+  }
+}
+
+.header-top-gradient{
+  background: linear-gradient(#000, transparent);
+  content: "";
+  height: 110px;
+  opacity: .6;
+}
+
+.banner-title{
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  font-size: 40px;
+  font-weight: 700;
+  max-width: 33.3333333333%;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.smaller{
+  font-size: 31px;
+}
+
+.discount{
+  background-color: var(--color-primary);
+  border-radius: 5px 5px 0;
+  color: #fff;
+  font-weight: 700;
+  padding: 5px 6px 6px 7px;
+}
+
+.full-link {
+  bottom: 30px;
+  top: 22%;
+  left: 0;
+  right: 0;
+  z-index: 10; /* o qualcosa di alto */
+  display: block;
+}
+
+.discount:after {
+  background-color: var(--color);
+  border-radius: 6px 3px;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 0;
+  transform: skewX(16deg);
+  width: 100%;
+  z-index: -1;
+}
+
+.price {
+  color:white;
+  font-size: 40px;
+  line-height: 32px;
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width: 1260px) {
+  .banner-title {
+    max-width: 50%;
+  }
+}
+
+
 .max-w-1200 {
   max-width: 1200px;
 }
