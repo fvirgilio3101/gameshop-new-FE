@@ -21,11 +21,5 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.videogameService.getTrendingVideogames();
     this.videogameService.getBestSellingVideogames();
-
-     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      window.scrollTo(0, 0);
-    });
   }
 }
