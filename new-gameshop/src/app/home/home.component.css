@@ -95,7 +95,7 @@
   font-size: 31px;
 }
 
-.discount{
+.discount-price{
   background-color: var(--color-primary);
   border-radius: 5px 5px 0;
   color: #fff;
@@ -125,7 +125,7 @@
   z-index: -1;
 }
 
-.price {
+.price-header {
   color:white;
   font-size: 40px;
   line-height: 32px;

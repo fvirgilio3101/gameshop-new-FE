@@ -11,10 +11,10 @@
           {{game.titleVideogame}}
         </span>
         <div class="d-flex align-items-center g-30">
-          <span class="z-2 discount">
+          <span class="z-2 discount-price">
             - {{game.discount}}%
           </span>
-          <span class="price z-2">{{game.discountedPrice | currency: 'EUR'}}</span>
+          <span class="price-header z-2">{{game.discountedPrice | currency: 'EUR'}}</span>
         </div>
       </div>
       <a class="position-absolute full-link" [routerLink]="['/videogame',game.idVideogame]" aria-label=""></a>
