@@ -45,6 +45,11 @@
   padding-top: 500px;
 }
 
+.header-picture{
+  left:0;
+  right:0;
+}
+
 picture img{
   object-fit: cover;
 }

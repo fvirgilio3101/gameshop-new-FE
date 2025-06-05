@@ -5,21 +5,35 @@
     <!-- Logo -->
     <a class="logo-gameshop" aria-label="Gameshop Logo" href="#"></a>
 
-    <div
-      class="position-absolute left-50 top-50 start-50 translate-middle platform-selector">
-      <div class="d-flex flex-nowrap align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm bg-dark bg-opacity-75">
-        @for (platform of platforms; track $index) {
-          <a class="d-flex align-items-center gap-2 text-white px-3 py-2 rounded-pill text-decoration-none fw-semibold platform-button"
-            [routerLink]="['/', platform.name]"
-            [routerLinkActive]="[platform.background]">
-            <i [class]="platform.icon" class="fs-5"></i>
-            {{ platform.label }}
-          </a>
+    
+    <div #platformBar class="position-absolute left-50 top-50 start-50 translate-middle platform-selector">
+      @if (!showSearch()){
+        <div class="d-flex flex-nowrap align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm bg-dark bg-opacity-75">
+          @for (platform of platforms; track $index) {
+            <a class="d-flex align-items-center gap-2 text-white px-3 py-2 rounded-pill text-decoration-none fw-semibold platform-button"
+              [routerLink]="['/', platform.name]"
+              [routerLinkActive]="[platform.background]">
+              <i [class]="platform.icon" class="fs-5"></i>
+              {{ platform.label }}
+            </a>
+          }
+        
+          <button class="btn btn-search d-flex align-items-center justify-content-center btn-circle" (click)="toggleSearch()">
+            <i class="bi bi-search text-white fs-5"></i>
+          </button>
+        </div>
+        }@else{
+          <form class="w-100">
+            <div>
+              <input class="position-relative h-100 w-100 text-white px-5 py-4 text outline-none search-input" spellcheck="false" name="search" autocapitalize="off" autocomplete="off" [(ngModel)]="searchQuery" placeholder="Minecraft,RPG,multiplayer ...">
+              <div class="position-absolute d-flex align-items-center justify-content-center pointer close-search" >
+                <i class="bi bi-x" (click)="hideSearch()"></i>
+              </div>
+            </div>
+          </form>
+    
+      
         }
-        <button class="btn btn-search d-flex align-items-center justify-content-center btn-circle">
-          <i class="bi bi-search text-white fs-5"></i>
-        </button>
-      </div>
     </div>
 
     <!-- Toggler -->
