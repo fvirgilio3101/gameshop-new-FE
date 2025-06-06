@@ -1,4 +1,4 @@
-:host {
+* {
   --color-primary: #ff5400;
   --color-accent: #ffa700;
   --color-bg-dark: #1e1e1e;
@@ -110,6 +110,10 @@
   gap: 0.5rem;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   transition: .2s ease-in-out;
+}
+
+.text-white-1{
+  color: var(--color-white);
 }
 
 .search-input {

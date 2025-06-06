@@ -89,28 +89,56 @@ export class NavbarComponent implements OnInit{
  toggleSearch() {
   this.showSearch.set(true);
 
-  
-  /*this.platformBar().nativeElement.style.display = 'none';
 
-  
+  //this.platformBar().nativeElement.style.display =  'none';
+
+
   const searchContainer = this.document.createElement('div');
   searchContainer.classList.add('d-flex', 'flex-nowrap', 'align-items-center', 'rounded-pill');
 
   const form = this.document.createElement('form');
-  form.classList.add('w-100');
+  form.classList.add('w-100','d-flex', 'align-items-center' ,'rounded-pill' ,'shadow-sm');
 
+  form.style.background = 'linear-gradient(10deg, #ff8a15, #ff3131)';
+  form.style.minWidth = '600px';
+  form.style.height = '56px';
+  form.style.padding = '0 12px';
+  form.style.boxShadow = '0 0 12px rgba(0, 0, 0, 0.2)';
+  form.style.transition = '.2s ease-in-out';
   const wrapper = this.document.createElement('div');
-
+  wrapper.classList.add('position-relative','w-100');
   const input = this.document.createElement('input');
-  input.classList.add('position-absolute', 'h-100', 'text-white', 'text', 'outline-none', 'search-input');
+  input.style.cursor = 'text';
+  input.style.background = 'transparent';
+  input.style.border = 'none';
+  input.style.outline = 'none';
+  input.style.color = '#ffffff';
+  input.style.fontSize = '1.1rem';
+  input.style.fontWeight = '600';
+  input.style.width = '100%';
+  input.style.padding = '0.75rem 1.25rem';
+  input.style.borderRadius = '999px'
   input.setAttribute('spellcheck', 'false');
   input.setAttribute('name', 'search');
   input.setAttribute('autocapitalize', 'off');
   input.setAttribute('autocomplete', 'off');
+  input.setAttribute('placeholder','Minecraft,RPG,multiplayer ...')
   input.value = this.searchQuery;
+
+  input.addEventListener('input', (event) => {
+    const target = event.target as HTMLInputElement;
+    this.searchQuery = target.value;
+  });
 
   const closeBtn = this.document.createElement('div');
   closeBtn.classList.add('position-absolute', 'd-flex', 'align-items-center', 'justify-content-center', 'pointer', 'close-search');
+  closeBtn.style.right = '-50px';
+  closeBtn.style.top = '50%';
+  closeBtn.style.transform = 'translateY(-50%)';
+  closeBtn.style.fontSize = '45px';
+  closeBtn.style.color='#ffffff';
+  closeBtn.style.cursor = 'pointer';
+  closeBtn.style.zIndex = '11';
   closeBtn.innerHTML = `<i class="bi bi-x"></i>`;
   closeBtn.onclick = () => this.hideSearch();
 
@@ -119,22 +147,21 @@ export class NavbarComponent implements OnInit{
   form.appendChild(wrapper);
   searchContainer.appendChild(form);
 
-  // Inserisci subito dopo platformBar
-  this.platformBar().nativeElement.innerHTML = searchContainer;
+  this.platformBar().nativeElement.appendChild(searchContainer);
   this.searchFormEl = form;
 
-  setTimeout(() => input.focus(), 0);*/
+  setTimeout(() => input.focus(), 0);
 }
 
 
   hideSearch() {
     this.showSearch.set(false);
 
-    /*this.platformBar().nativeElement.style.display = 'flex';
+    this.platformBar().nativeElement.style.display = 'flex';
 
     if (this.searchFormEl) {
       this.searchFormEl.remove();
       this.searchFormEl = null;
-    }*/
+    }
   }
 }
