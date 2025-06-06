@@ -65,6 +65,13 @@ getBestSellingVideogames() {
     .subscribe(data => this.bestSellerSignal.set(data));
 }
 
+searchVideogames(query: string): Observable<Videogame[]> {
+  const url = `http://localhost:8082/it.ecubit.gameshop/api/index/filter?titleVideogame=${encodeURIComponent(query)}`;
+  return this.http.get<Videogame[]>(url, { withCredentials: true });
+}
+
+
+
 
 
 }

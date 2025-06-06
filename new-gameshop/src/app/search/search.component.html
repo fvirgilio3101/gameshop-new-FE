@@ -1,0 +1,53 @@
+<div class="text-white d-flex flex-wrap justify-content-center position-relative flex-gap-30 mt-5 max-w-1200 mx-auto">
+  <h2 class="headline w-100 mb-4">Risultati della ricerca</h2>
+
+  @if (searchResults.length === 0) {
+    <p class="text-center w-100 text-muted">Nessun risultato trovato.</p>
+  } @else {
+    @for (game of searchResults; track game.idVideogame) {
+      <div class="card bg-card d-flex flex-column position-relative z-1 column-flex-card" style="width: 280px;">
+        <a class="cover text-white text-decoration-none" 
+           [routerLink]="['/videogame', game.idVideogame]" 
+           title="{{ game.titleVideogame }}">
+          <picture>
+            <img [src]="game.coverImage" 
+                 alt="{{ game.titleVideogame }}" 
+                 class="w-100 h-100 object-cover overflow-hidden rounded shadow-sm"
+                 style="transition: transform 0.3s ease;">
+          </picture>
+
+          @if(game.platforms && game.platforms !== 'PC'){
+            <div class="position-absolute z-1 platform" style="top: 8px; left: 8px;">
+              @if(game.platforms.includes('PlayStation')){
+                <i class="bi bi-playstation playstation fs-4"></i>
+              } @else if(game.platforms.includes('Xbox')) {
+                <i class="bi bi-xbox fs-4"></i>
+              } @else if(game.platforms.includes('Nintendo')) {
+                <i class="bi bi-nintendo-switch fs-4"></i>
+              }
+            </div>
+          }
+
+          @if (game.discount && game.discount > 0) {
+            <div class="discount position-absolute text-white small z-2" style="top: 8px; right: 8px;">
+              - {{ game.discount }}%
+            </div>
+          }
+        </a>
+
+        <div class="d-flex position-relative gap-7 z-1 p-3 flex-column flex-grow-1">
+          <span class="text-white title fw-bold" title="{{ game.titleVideogame }}" style="font-size: 1.1rem;">
+            {{ game.titleVideogame }}
+          </span>
+
+
+          <div class="price text-white fw-semibold" style="font-size: 1.05rem;">
+            {{ game.discountedPrice | currency: 'EUR' }}
+          </div>
+
+         
+        </div>
+      </div>
+    }
+  }
+</div>

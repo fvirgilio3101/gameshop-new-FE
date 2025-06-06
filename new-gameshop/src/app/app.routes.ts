@@ -62,5 +62,10 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./best-seller/best-seller.component').then(m => m.BestSellerComponent),
 },
+{
+  path: 'search',
+  loadComponent: () => import('./search/search.component').then(m => m.SearchComponent)
+},
+
 
 ];
