@@ -4,11 +4,33 @@
     <div>
       <app-breadcrumb></app-breadcrumb>
       <div class="d-flex flex-column align-items-center g-15">
-        <h1 class="title">
+        <h1 class="title-page">
           {{platform}}
         </h1>
       </div>
     </div>
+    @if(games_()[0];as banner){
+      <a class="text-white text-decoration-none position-relative d-flex w-100 section-banner" [routerLink]="['/videogame',banner.idVideogame]" [title]="banner.titleVideogame">
+        <picture class="position-absolute d-flex justify-content-center top-0 bottom-0 banner-picture">
+          <img class="h-100 w-100 fit-cover" [src]="banner.backgroundImage" [alt]="banner.titleVideogame">
+        </picture>
+        <div class="d-flex flex-column text-white align-self-center align-items-start w-100 max-w-1200 z-1 g-15">
+          <span class="fs-31">{{banner.titleVideogame}}</span>
+          <div class="d-flex align-items-center flex-gap-30">
+            @if(banner.discount){
+              <span class="z-2 discount-price">
+                - {{banner.discount}}%
+              </span>
+            }
+            @if(banner.discountedPrice){
+              <span class="banner-price">{{banner.discountedPrice | currency: 'EUR'}}</span>
+            }@else {
+              <span class="banner-price">{{banner.priceVideogame | currency: 'EUR'}}</span>
+            }
+          </div>
+        </div>
+      </a>
+    }
     @if(games_(); as games){
       <div class="d-flex flex-wrap justify-content-center position-relative flex-gap-30">
         @for (game of games; track game.idVideogame) {
