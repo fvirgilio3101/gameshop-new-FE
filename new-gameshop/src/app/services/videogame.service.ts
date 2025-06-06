@@ -65,6 +65,11 @@ getBestSellingVideogames() {
     .subscribe(data => this.bestSellerSignal.set(data));
 }
 
+getByPlatform(keyword:string){
+  return this.http.get<Videogame[]>('http://localhost:8082/it.ecubit.gameshop/api/index/platform/'+ keyword)
+  .subscribe(data => this.videogameSignal.set(data));
+}
+
 
 
 }
