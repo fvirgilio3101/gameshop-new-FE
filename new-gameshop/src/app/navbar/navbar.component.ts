@@ -126,9 +126,14 @@ export class NavbarComponent implements OnInit{
   input.value = this.searchQuery;
 
   input.addEventListener('input', (event) => {
-    const target = event.target as HTMLInputElement;
-    this.searchQuery = target.value;
+  const target = event.target as HTMLInputElement;
+  this.searchQuery = target.value;
+
+  this.router.navigate(['/search'], {
+    queryParams: { q: this.searchQuery }
   });
+});
+
 
   const closeBtn = this.document.createElement('div');
   closeBtn.classList.add('position-absolute', 'd-flex', 'align-items-center', 'justify-content-center', 'pointer', 'close-search');
